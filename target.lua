@@ -12,11 +12,11 @@ exports['qb-target']:AddBoxZone("stachename1",vector3location, 1.5, 1.75, { -- 9
 		{
             type = "client",
             event = "md-stashes:client:AutoCare",
-			icon = "fas fa-sign-in-alt",
-			label = "open stash",
-			--job = "mechanic",
-			--gang = "ballas",
-			--item = "metalscrap"
+	    icon = "fas fa-sign-in-alt",
+	    label = "open stash",
+	    --job = "mechanic",
+	    --gang = "ballas",
+		--item = "metalscrap"
 		},
 	},
 	distance = 2.5
