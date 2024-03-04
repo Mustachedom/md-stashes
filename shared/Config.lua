@@ -2,7 +2,7 @@ Config = {}
 Config.OxInv = false
 Config.OxTarget = false
 Config.Defaultslot = 50
-Config.Defaultweight = 100000
+Config.Defaultweight = 1000000
 --[[
     OPTIONALS
     job = "jobname"
