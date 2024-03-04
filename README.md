@@ -27,6 +27,8 @@ fill out your config
 
 <h1>How It Works</h1>
 You can either 
+
+
 A) type out manually where you want the stashes 
 
 or 
