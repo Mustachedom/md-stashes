@@ -1,6 +1,6 @@
 Config = {}
-Config.OxInv = false
-Config.OxTarget = false
+Config.OxInv = true
+Config.OxTarget = true
 Config.Defaultslot = 50
 Config.Defaultweight = 1000000
 --[[
@@ -16,8 +16,6 @@ Config.Defaultweight = 1000000
 
 ]]
 Config.stash = {
-    ['test'] = { loc = vector3(2742.77, 2785.56, -35.55),  weight = 1, slots = 1},
-    ['test2'] = { loc = vector3(2746.3481445312, 2787.6713867188, -35.787368774414), item = 'lockpick', slots = 12, weight = 10000},
-    
+    ['test'] = { loc = vector3(2742.77, 2785.56, -35.55), weight = 1, slots = 1 },
+    ['test2'] = { loc = vector3(2746.3481445312, 2787.6713867188, -35.787368774414), item = 'lockpick', slots = 12, weight = 10000 },
 }
-
