@@ -15,7 +15,7 @@
 - Our partner [1of1 Servers]( https://1of1servers.com/) and their [discord](https://discord.gg/1of1servers) for their amazing server hosting! absolutely top notch.
 
 <h1>Showcase Video Done By [ShooterMcGamin](https://www.youtube.com/@ShooterMcGamin1)</h1>
-[Video Link](https://www.youtube.com/watch?v=N0zdbZ3CM9Y)
+[Link](https://www.youtube.com/watch?v=N0zdbZ3CM9Y)
 
 <h1>Dependencies</h1>
 ox lib
