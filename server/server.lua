@@ -4,7 +4,7 @@ CreateThread(function()
 if Config.OxInv then
     for k, v in pairs (Config.stash) do 
         if v.weight == nil then v.weight = Config.Defaultweight end
-		if v.slot == nil then v.slot = Config.Defaultslot end
+	if v.slots == nil then v.slots = Config.Defaultslot end
         local stash = {
         id = k,
         label = v.name,
