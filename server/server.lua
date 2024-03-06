@@ -16,8 +16,11 @@ if Config.OxInv then
 end    
 end)
 
-QBCore.Commands.Add('newstash',"Make A New Stash", {},false, function(source)
-local src = source
-local Player = QBCore.Functions.GetPlayer(src)    
-    TriggerClientEvent('md-stashes:client:doray', src)         
-end,'admin')
+lib.addCommand('newstash', {
+    help = "Make A New Stash",
+    restricted = 'group.admin',
+}, function(source, args, raw)
+    local src = source
+    TriggerClientEvent('md-stashes:client:doray', src)
+end)
+
