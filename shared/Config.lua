@@ -1,6 +1,7 @@
 Config = {}
 Config.OxInv = false
 Config.OxTarget = false
+Config.interact = false
 Config.Defaultslot = 50
 Config.Defaultweight = 1000000
 --[[
