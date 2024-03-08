@@ -48,6 +48,41 @@ CreateThread(function()
 					},
 				},
 			})
+		elseif Config.interact then
+			exports.interact:AddInteraction({
+				coords = v.loc,
+				distance = 8.0, -- optional
+				interactDst = 2.0, -- optional
+				id = 'mdstashes'..k, -- needed for removing interactions
+				name = 'mdstashes'..k, -- optional
+				options = {
+					{
+						label = v.targetlabel,
+						action = function()
+						if Config.OxInv then
+							exports.ox_inventory:openInventory('stash', {id = k})
+						else	
+							Wait(100)
+							TriggerEvent("inventory:client:SetCurrentStash", k)
+							TriggerServerEvent("inventory:server:OpenInventory", "stash", k, {
+								maxweight = v.weight,
+								slots = v.slots,
+							})
+						end	
+						end,
+						canInteract = function()
+							if QBCore.Functions.GetPlayerData().job.name == v.job or v.job == 1 then
+								if QBCore.Functions.GetPlayerData().gang.name == v.gang or v.gang == 1 then
+									if v.item == 1 or QBCore.Functions.HasItem(v.item) then
+										if QBCore.Functions.GetPlayerData().citizenid == v.cid or v.cid == 2 then
+										return true end
+									end	
+								end	
+							end	
+						end
+					},
+				}
+			})
 		else
     	    exports['qb-target']:AddBoxZone('mdstashes'..k, v.loc, 1.5, 1.75, { -- 963.37, -2122.95, 31.47
 			name = 'mdstashes'..k,
