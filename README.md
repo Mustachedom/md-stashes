@@ -19,7 +19,13 @@
 - [Link](https://www.youtube.com/watch?v=N0zdbZ3CM9Y)
 
 <h1>Dependencies</h1>
-ox lib
+#[ox_lib]https://github.com/overextended/ox_lib/releases/tag/v3.16.3)
+
+#[World Interactions](https://github.com/darktrovx/interact)
+
+#qb-target, ox_target
+
+#Ox, Ps, Lj, Qb Inventory
 
 <h1>How to install like a fuckin boss</h1>
 
