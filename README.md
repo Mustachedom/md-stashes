@@ -19,9 +19,9 @@
 - [Link](https://www.youtube.com/watch?v=N0zdbZ3CM9Y)
 
 <h1>Dependencies</h1>
-#ox lib [Link](https://github.com/overextended/ox_lib/releases/tag/v3.16.3)
+#[ox_lib]https://github.com/overextended/ox_lib/releases/tag/v3.16.3)
 
-#World Interactions [Link](https://github.com/darktrovx/interact)
+#[World Interactions](https://github.com/darktrovx/interact)
 
 #qb-target, ox_target
 
