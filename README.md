@@ -23,9 +23,9 @@
 
 - [World Interactions](https://github.com/darktrovx/interact)
 
-- qb-target, ox_target
+- qb-target - ox_target
 
-- Ox, Ps, Lj, Qb Inventory
+- Ox - Ps - Lj - Qb Inventory
 
 <h1>How to install like a fuckin boss</h1>
 
