@@ -24,7 +24,7 @@
 
 - [World Interactions](https://github.com/darktrovx/interact)
 
-- qb-target - ox_target
+- [qb-target](https://github.com/qbcore-framework/qb-target)  - [ox_target](https://github.com/overextended/ox_target)
 
 - Ox - Ps - Lj - Qb Inventory
 
