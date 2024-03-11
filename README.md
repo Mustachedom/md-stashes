@@ -21,7 +21,7 @@
 <h1>Dependencies</h1>
 
 
-- [ox_lib]https://github.com/overextended/ox_lib/releases/tag/v3.16.3)
+- [ox_lib](https://github.com/overextended/ox_lib/releases/tag/v3.16.3)
 
 - [ox lib](https://github.com/overextended/ox_lib/releases/tag/v3.16.3)
 
