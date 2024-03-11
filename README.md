@@ -20,6 +20,9 @@
 
 <h1>Dependencies</h1>
 
+
+- [ox_lib]https://github.com/overextended/ox_lib/releases/tag/v3.16.3)
+
 - [ox lib](https://github.com/overextended/ox_lib/releases/tag/v3.16.3)
 
 - [World Interactions](https://github.com/darktrovx/interact)
@@ -27,6 +30,7 @@
 - [qb-target](https://github.com/qbcore-framework/qb-target)  - [ox_target](https://github.com/overextended/ox_target)
 
 - Ox - Ps - Lj - Qb Inventory
+
 
 <h1>How to install like a fuckin boss</h1>
 
