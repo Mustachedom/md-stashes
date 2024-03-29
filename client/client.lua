@@ -2,6 +2,9 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 
 CreateThread(function()
+	while not LocalPlayer.state.isLoggedIn do
+		Wait(3000)
+	end
     for k, v in pairs (Config.stash) do 
 		if v.job == nil then v.job = 1 end
 		if v.gang == nil then v.gang = 1 end
