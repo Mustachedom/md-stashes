@@ -12,7 +12,6 @@ CreateThread(function()
 		if v.cid == nil then v.cid = 2 end
 		if v.rank == nil then v.rank = 0 end
 		if v.password == nil then v.password = 0 end
-		print(k, v.rank,QBCore.Functions.GetPlayerData().job.grade.level)
 		if Config.OxTarget then
 			stashes = exports.ox_target:addBoxZone({
 				coords = v.loc,
