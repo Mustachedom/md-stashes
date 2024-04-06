@@ -17,7 +17,7 @@ CreateThread(function()
 				coords = v.loc,
 				size = vec(1,1,2),
 				rotation = 0,
-				debug = true,
+				debug = false,
 				options = {
 					{
 						name = 'openstashes',
