@@ -27,7 +27,7 @@ CreateThread(function()
 						onSelect = function()
 							if v.password ~= 0 then
 								local input = lib.inputDialog('Password', {
-									{type = 'number', label = 'Password', description = 'What Is The Password', min = 1, max = 99999, required = true},
+									 {type = 'input', label = 'Password', description = 'What Is The Password', required = true},
 								})
 								local combo = input[1]
 								if v.password == combo then
@@ -82,7 +82,7 @@ CreateThread(function()
 						action = function()
 							if v.password ~= 0 then
 								local input = lib.inputDialog('Password', {
-									{type = 'number', label = 'Password', description = 'What Is The Password', min = 1, max = 99999, required = true},
+									 {type = 'input', label = 'Password', description = 'What Is The Password', required = true},
 								})
 								local combo = input[1]
 								if v.password == combo then
@@ -136,7 +136,7 @@ CreateThread(function()
 					action = function()
 						if v.password ~= 0 then
 							local input = lib.inputDialog('Password', {
-								{type = 'number', label = 'Password', description = 'What Is The Password', min = 1, max = 99999, required = true},
+								 {type = 'input', label = 'Password', description = 'What Is The Password', required = true},
 							})
 							local combo = input[1]
 							if v.password == combo then
@@ -218,7 +218,7 @@ RegisterNetEvent('md-stashes:client:doray', function()
 			{type = 'input', label = 'item', description = 'Item or Blank'},
 			{type = 'input', label = 'Slot Size', description = 'Slot Size or Blank'},
 			{type = 'input', label = 'Weight', description = 'Weight Size or Blank'},
-			{type = 'number',label = 'Password', description = 'Password Or Blank', min = 1, max = 99999},
+			{type = 'input',label = 'Password', description = 'Password Or Blank'},
 			{type = 'input', label = 'Citizen ID', description = 'Citizen ID or Blank'},
 		  })
 	local nameloc = "['"..input[1] .. "'] = { loc = vector3(" .. stashmake.x ..", " .. stashmake.y .. ", " .. stashmake.z .. ")"
@@ -228,7 +228,7 @@ RegisterNetEvent('md-stashes:client:doray', function()
 	if input[5] == ''then else input[5] = ", item = '" .. input[5] .. "'" end
 	if input[6] == ''then else input[6] = ", slots = " .. input[6] .. "" end
 	if input[7] == ''then else input[7] = ", weight = " .. input[7] .. "" end
-	if input[8] == ''then else input[8] = ", password = " .. input[8] .. "" end
+	if input[8] == ''then else input[8] = ", password = '" .. input[8] .. "'" end
 	if input[9] == ''then else input[9] = ", cid = '" .. input[9] .. "'" end
 	local copy = nameloc .. input[2] .. "" .. input[3] .. "" .. input[4] .. "" .. input[5] .. "" .. input[6].. "" .. input[7] .. "" .. input[8] .. "" .. input[9].. "},"
 	lib.setClipboard(copy)
