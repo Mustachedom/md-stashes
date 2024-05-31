@@ -1,8 +1,7 @@
 Config = {}
-Config.OxInv = false
-Config.QBNew = false -- if you use the new qb-inventory from april/march of 2024
-Config.OxTarget = true
-Config.interact = false
+Config.Inv = 'qb' -- qb/ox/qs/ ps(if you use lj, mark this as ps)
+Config.OxTarget = false 
+Config.interact = false -- if both OxTarget and Interact is false, then this results to qb-target
 Config.Defaultslot = 50
 Config.Defaultweight = 1000000
 --[[
@@ -22,7 +21,6 @@ Config.Defaultweight = 1000000
 Config.stash = {
     ['test'] = { loc = vector3(520.29736328125, -3108.0920410156, 33.285308837891)},
     ['test2'] = { loc = vector3(2746.3481445312, 2787.6713867188, -35.787368774414), item = 'lockpick', slots = 12, weight = 10000},
-   
-    
+
 }
 
