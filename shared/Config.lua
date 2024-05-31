@@ -1,5 +1,6 @@
 Config = {}
 Config.OxInv = false
+Config.QBNew = false -- if you use the new qb-inventory from april/march of 2024
 Config.OxTarget = true
 Config.interact = false
 Config.Defaultslot = 50
