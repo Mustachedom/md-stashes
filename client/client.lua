@@ -90,29 +90,9 @@ CreateThread(function()
 		if Config.OxTarget then		
 			stashes = exports.ox_target:addBoxZone({ coords = v.loc, size = vec(1,1,2), rotation = 0, debug = false},{options = optionsox})
 		elseif Config.interact then
-			exports.interact:AddInteraction({
-				coords = v.loc,
-				distance = 8.0, -- optional
-				interactDst = 2.0, -- optional
-				id = 'mdstashes'..k,  -- needed for removing interactions
-				name = 'mdstashes'..k, -- optional
-				options = {
-					{ label = v.targetlabel, action = function() 	OpenStash(k, v.weight, v.slots, v.password) end,
-						canInteract = function()
-							if QBCore.Functions.GetPlayerData().job.name == v.job and QBCore.Functions.GetPlayerData().job.grade.level >= v.rank or v.job == 1 then
-								if QBCore.Functions.GetPlayerData().gang.name == v.gang and QBCore.Functions.GetPlayerData().gang.grade.level >= v.rank or v.gang == 1 then
-									if v.item == 1 or QBCore.Functions.HasItem(v.item) then
-										if QBCore.Functions.GetPlayerData().citizenid == v.cid or v.cid == 2 then
-										return true end
-									end	
-								end	
-							end	
-						end
-					},
-				}
-			})
+			exports.interact:AddInteraction({ coords = v.loc, distance = 8.0, interactDst = 2.0, id = 'mdstashes'..k, name = 'mdstashes'..k , options = options})
 		else
-    	    exports['qb-target']:AddBoxZone('mdstashes'..k, v.loc, 1.5, 1.75, {name = 'mdstashes'..k,minZ = v.loc.z-2,maxZ = v.loc.z+2,}, {options = options, distance = 2.0})
+    	    		exports['qb-target']:AddBoxZone('mdstashes'..k, v.loc, 1.5, 1.75, {name = 'mdstashes'..k,minZ = v.loc.z-2,maxZ = v.loc.z+2,}, {options = options, distance = 2.0})
 		end		
 	end	
 
