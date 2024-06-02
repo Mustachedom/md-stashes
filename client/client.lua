@@ -88,7 +88,7 @@ CreateThread(function()
 					},
 				}
 		if Config.OxTarget then		
-			stashes = exports.ox_target:addBoxZone({ coords = v.loc, size = vec(1,1,2), rotation = 0, debug = false},{options = optionsox})
+			stashes = exports.ox_target:addBoxZone({ coords = v.loc, size = vec(1,1,2), rotation = 0, debug = false, options = optionsox})
 		elseif Config.interact then
 			exports.interact:AddInteraction({ coords = v.loc, distance = 8.0, interactDst = 2.0, id = 'mdstashes'..k, name = 'mdstashes'..k , options = options})
 		else
