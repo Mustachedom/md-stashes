@@ -37,8 +37,6 @@ Drag Resource into your script folder
 
 - **STEP 2** 
 fill out your config
-- **STEP 3**
-You can either 
 
 - **STEP 3**
 IF YOU USE OLD QB INVENTORY OR LJ, PS INVENTORY MARK Config.Inv == 'ps'
