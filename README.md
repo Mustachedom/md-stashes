@@ -41,7 +41,12 @@ fill out your config
 <h1>How It Works</h1>
 You can either 
 
+- **STEP 3**
+IF YOU USE OLD QB INVENTORY OR LJ, PS INVENTORY MARK Config.Inv == 'ps'
+as they use the same events
 
+IF YOU USE NEW QB mark it to be qb
+- **STEP 4**
 A) type out manually where you want the stashes 
 
 or 
