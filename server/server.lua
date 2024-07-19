@@ -9,7 +9,7 @@ local headers = {
 
 CreateThread(function()
 if logs then 
-    print'^2 Logs Enabled for md-fishing'
+    print'^2 Logs Enabled for md-stashes'
     if logapi == 'insert string here' then 
         print'^1 homie you gotta set your api on line 3'
     else
