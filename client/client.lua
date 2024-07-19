@@ -1,4 +1,15 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+local invcall = ''
+
+CreateThread(function()
+if GetResourceState('ps-inventory') == 'started' then
+    invcall = 'ps-inventory'
+elseif GetResourceState('qb-inventory') == 'started' then 
+    invcall = 'qb-inventory'
+elseif GetResourceState('lj-inventory') == 'started' then
+    invcall = 'inventory'
+end
+end)
 
 local function OpenStash(name, weight, slot, password)
 	if password ~= 0 then
@@ -11,8 +22,8 @@ local function OpenStash(name, weight, slot, password)
 				exports.ox_inventory:openInventory('stash', {id = name})
 			elseif Config.Inv == 'ps' then 
 				Wait(100)
-				TriggerEvent("inventory:client:SetCurrentStash", name)
-				TriggerServerEvent("inventory:server:OpenInventory", "stash", name, {
+				TriggerEvent(invcall..":client:SetCurrentStash", name)
+				TriggerServerEvent(invcall..":server:OpenInventory", "stash", name, {
 					maxweight = weight,
 					slots = slot,
 				})
@@ -31,8 +42,8 @@ local function OpenStash(name, weight, slot, password)
 			exports.ox_inventory:openInventory('stash', {id = name})
 		elseif Config.Inv == 'ps' then 
 			Wait(100)
-			TriggerEvent("inventory:client:SetCurrentStash", name)
-			TriggerServerEvent("inventory:server:OpenInventory", "stash", name, {
+			TriggerEvent(invcall..":client:SetCurrentStash", name)
+			TriggerServerEvent(invcall..":server:OpenInventory", "stash", name, {
 				maxweight = weight,
 				slots = slot,
 			})
