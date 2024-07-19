@@ -23,9 +23,9 @@
 
 - [ox_lib](https://github.com/overextended/ox_lib/releases)
 
-- [World Interactions](https://github.com/darktrovx/interact)
+- [World Interactions](https://github.com/darktrovx/interact) - optional
 
-- [qb-target](https://github.com/qbcore-framework/qb-target)  - [ox_target](https://github.com/overextended/ox_target)
+- [qb-target](https://github.com/qbcore-framework/qb-target)  - [ox_target](https://github.com/overextended/ox_target) - optionals
 
 - Ox - Ps - Lj - Qb Inventory
 
@@ -53,4 +53,20 @@ B) use command newstash and fill in the things you want
 if you do not want an option LEAVE BLANK
 for example. if you dont want the stash job locked, leave the job category blank.
 when you hit enter it will copy the code and you paste it in your config then badaboom badabing it Works
+
+<h1>Fivemerr</h1>
+This is NOT a requirement but something I personally use and believe in.
+
+
+- to integrate with fivemerr make sure you have  ```set fivemerrLogs "API_KEY"```   in your server.cfg
+   
+- Head to /server/bridge.lua and line 3 turn local logs = true
+  
+- profit
+
+Why integrate with Fivemerr? Its a great place to store logs as it doesnt rely on discord webhooks and its far easier to search through
+
+As well as a place to offload images and videos from fivem that doesnt rely on discord since discord API will be automatically deleting images and videos after a certain amount of time If you need an invite to their server look below
+- [Fivemerr Discord](https://discord.com/invite/fivemerr)
+- [Fivemerr Docs](https://docs.fivemerr.com/)
 
