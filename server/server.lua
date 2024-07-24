@@ -73,5 +73,11 @@ RegisterServerEvent('md-stashes:server:OpenStash', function(name, weight, slot)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local data = { label = name, maxweight = weight, slots = slot }
-    exports['qb-inventory']:OpenInventory(source, name, data)
+    if GetResourceState('qb-inventory') == 'started' then
+    	exports['qb-inventory']:OpenInventory(source, name, data)
+   elseif GetResourceState('ps-inventory') == 'started' then
+	exports['ps-inventory']:OpenInventory(source, name, data)
+   else
+      print('follow the readme')
+   end
 end)
