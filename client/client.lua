@@ -20,7 +20,7 @@ local function OpenStash(name, weight, slot, password)
 		if password == combo then
 			if Config.Inv == 'ox' then
 				exports.ox_inventory:openInventory('stash', {id = name})
-			elseif Config.Inv == 'ps' then 
+			elseif Config.Inv == 'oldqb' then 
 				Wait(100)
 				TriggerEvent(invcall..":client:SetCurrentStash", name)
 				TriggerServerEvent(invcall..":server:OpenInventory", "stash", name, {
@@ -40,7 +40,7 @@ local function OpenStash(name, weight, slot, password)
 	else
 		if Config.Inv == 'ox' then
 			exports.ox_inventory:openInventory('stash', {id = name})
-		elseif Config.Inv == 'ps' then 
+		elseif Config.Inv == 'oldqb' then 
 			Wait(100)
 			TriggerEvent(invcall..":client:SetCurrentStash", name)
 			TriggerServerEvent(invcall..":server:OpenInventory", "stash", name, {
