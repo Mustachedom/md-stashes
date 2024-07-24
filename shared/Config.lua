@@ -1,5 +1,5 @@
 Config = {}
-Config.Inv = 'qb' -- qb/ox/qs/ ps(if you use lj, mark this as ps)
+Config.Inv = 'qb' -- qb/ox/qs/oldqb (if you use old version of qb-inventory/ps-inventory prior to 07/24/2024, or lj-invenotry)
 Config.OxTarget = false 
 Config.interact = false -- if both OxTarget and Interact is false, then this results to qb-target
 Config.Defaultslot = 50
