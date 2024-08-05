@@ -10,15 +10,16 @@ local headers = {
 CreateThread(function()
 if logs then 
     print'^2 Logs Enabled for md-stashes'
-    if logapi == 'insert string here' then 
-        print'^1 homie you gotta set your api on line 3'
+    if logapi == nil then 
+        print'^1 TURN LINE 2 TO FALSE OR ADD fivemerrLogs TO YOUR CFG LIKE THE README SAYS'
     else
         print'^2 API Key Looks Good, Dont Trust Me Though, Im Not Smart'
     end
 else
-    print'^1 logs disabled for md-drugs'
+    print'^1 logs disabled for md-stashes'
 end
 end)
+
 local function Log(message, type)
 if logs == false then return end	
     local buffer = {
@@ -55,7 +56,8 @@ if Config.Inv == 'ox' then
         }
         exports.ox_inventory:RegisterStash(stash.id, stash.label, stash.slots, stash.weight)
     end
-end    
+end 
+
 end)
 
 lib.addCommand('newstash', {
@@ -81,3 +83,71 @@ RegisterServerEvent('md-stashes:server:OpenStash', function(name, weight, slot)
       print('follow the readme')
    end
 end)
+
+RegisterServerEvent('md-stashes:server:makenew', function(loc, name, job, gang, rank, item, slots, weight, password, cid)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    local location = json.decode(loc)
+    if job == "" then job = nil end
+    if gang == "" then gang = nil end
+    if rank == "" then rank = 0 end
+    if item == "" then item = nil end
+    if slots == "" then slots = Config.Defaultslot end
+    if weight == "" then weight = Config.Defaultweight end
+    if password == "" then password = 0 end
+    if cid == "" then cid = '0' end
+    MySQL.insert('INSERT INTO mdstashes SET loc = ?, name = ?, job = ?, gang = ?, rank = ?, weight = ?, slots = ?, item = ?, targetlabel = ?, password = ?, citizenid = ?',
+    {loc, name,job,gang, rank ,weight,slots,item, 'Open Stash', password, cid})
+    TriggerClientEvent('md-stashes:client:makenew', -1)
+end)
+
+lib.callback.register('md-stashes:server:GetStashes', function(source)
+   local result = MySQL.query.await('SELECT * FROM mdstashes',{})
+   local stashes = {}
+   for i = 1, #result do 
+    local a = result[i]
+    table.insert(stashes, {
+        id = a.id,
+        loc = a.loc, 
+        name = a.name,
+        job = a.job,
+        gang = a.gang,
+        rank = a.rank,
+        weight = a.weight,
+        slots = a.slots,
+        item = a.item,
+        targetlabel = a.targetlabel,
+        password = a.password,
+        citizenid = a.citizenid,
+    })
+        if GetResourceState('ox_inventory') == 'started' then
+            exports.ox_inventory:RegisterStash(a.name, a.name, a.slots, a.weight)
+        end
+   end
+   return stashes
+end)
+
+lib.addCommand('ImportConfigStashes', {
+    help = "YOU ONLY NEED TO DO THIS ONCE, LITERALLY ONE TIME EVER",
+    restricted = 'group.admin',
+}, function(source, args, raw)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src) 
+    local info = Player.PlayerData.charinfo
+    for k, v in pairs (Config.stash) do 
+        local loc = json.encode({
+            x = v.loc.x,
+            y = v.loc.y,
+            z = v.loc.z
+        })
+        if v.loc == nil then return end
+        if v.cid == nil then v.cid = '0' end
+        if v.rank == nil then v.rank = 0 end
+        if v.password == nil then v.password = 0 end
+        MySQL.insert('INSERT INTO mdstashes SET loc = ?, name = ?, job = ?, gang = ?, rank = ?, weight = ?, slots = ?, item = ?, targetlabel = ?, password = ?, citizenid = ?',
+        {loc, k,v.job,v.gang, v.rank ,v.weight,v.slots,v.item, 'Open Stash', v.password, v.cid})
+    end
+    Log('ID: ' .. source .. ' Name: ' .. info.firstname .. ' ' .. info.lastname .. ' Used Command IMPORT CONFIG STASHES', 'command')
+
+end)
+

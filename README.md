@@ -41,19 +41,18 @@ fill out your config
 - **STEP 3**
 IF YOU USE OLD QB-INVENTORY/ LJ-INVENTORY OR PS-INVENTORY PRIOR TO 07/24/2024 THEN MARK CONFIG.INV TO oldqb
 
+- **STEP 4**
+Run The SQL
 
 
-IF YOU USE NEW QB OR NEW PS-INVENTORY FROM 07/24/2024 and on mark it to be qb
+IF YOU USE NEW QB OR NEW PS-INVENTORY FROM 07/24/2024 OR AFTER  mark Config.Inv to be qb
+
 <h1>How It Works</h1>
 
-A) type out manually where you want the stashes 
-
-or 
-
-B) use command newstash and fill in the things you want
+1) use command newstash and fill in the things you want
 if you do not want an option LEAVE BLANK
 for example. if you dont want the stash job locked, leave the job category blank.
-when you hit enter it will copy the code and you paste it in your config then badaboom badabing it Works
+when you hit enter it will create a stash in the sql. If you fuck up, how? its fill in the blank. BUT IF YOU DO, just delete the line in the table and restart the script. Badabing badaboop
 
 <h1>Fivemerr</h1>
 This is NOT a requirement but something I personally use and believe in.
@@ -70,4 +69,3 @@ Why integrate with Fivemerr? Its a great place to store logs as it doesnt rely o
 As well as a place to offload images and videos from fivem that doesnt rely on discord since discord API will be automatically deleting images and videos after a certain amount of time If you need an invite to their server look below
 - [Fivemerr Discord](https://discord.com/invite/fivemerr)
 - [Fivemerr Docs](https://docs.fivemerr.com/)
-

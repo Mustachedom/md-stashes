@@ -10,11 +10,10 @@ elseif GetResourceState('lj-inventory') == 'started' then
     invcall = 'inventory'
 end
 end)
-
 local function OpenStash(name, weight, slot, password)
 	if password ~= 0 then
 		local input = lib.inputDialog('Password', {
-			 {type = 'input', label = 'Password', description = 'What Is The Password', required = true},
+			 {type = 'number', label = 'Password', description = 'What Is The Password', required = true},
 		})
 		local combo = input[1]
 		if password == combo then
@@ -58,56 +57,6 @@ local function OpenStash(name, weight, slot, password)
 		end
 	end
 end
-CreateThread(function()
-    for k, v in pairs (Config.stash) do 
-		if v.job == nil then v.job = 1 end
-		if v.gang == nil then v.gang = 1 end
-		if v.targetlabel == nil then v.targetlabel = "Open Stash" end
-		if v.weight == nil then v.weight = Config.Defaultweight end
-		if v.slots == nil then v.slots = Config.Defaultslot end
-		if v.item == nil then v.item = 1 end
-		if v.cid == nil then v.cid = 2 end
-		if v.rank == nil then v.rank = 0 end
-		if v.password == nil then v.password = 0 end
-				local optionsox = {
-					{ label = v.targetlabel, onSelect = function() 	OpenStash(k, v.weight, v.slots, v.password) end,
-						 canInteract = function()
-							if QBCore.Functions.GetPlayerData().job.name == v.job and QBCore.Functions.GetPlayerData().job.grade.level >= v.rank or v.job == 1 then
-								if QBCore.Functions.GetPlayerData().gang.name == v.gang and QBCore.Functions.GetPlayerData().gang.grade.level >= v.rank or v.gang == 1 then
-									if v.item == 1 or QBCore.Functions.HasItem(v.item) then
-										if QBCore.Functions.GetPlayerData().citizenid == v.cid or v.cid == 2 then
-										return true end
-									end	
-								end	
-							end	
-						end
-			
-					},
-				}
-				local options = {
-					{ label = v.targetlabel, action = function() 	OpenStash(k, v.weight, v.slots, v.password) end,
-						 canInteract = function()
-							if QBCore.Functions.GetPlayerData().job.name == v.job and QBCore.Functions.GetPlayerData().job.grade.level >= v.rank or v.job == 1 then
-								if QBCore.Functions.GetPlayerData().gang.name == v.gang and QBCore.Functions.GetPlayerData().gang.grade.level >= v.rank or v.gang == 1 then
-									if v.item == 1 or QBCore.Functions.HasItem(v.item) then
-										if QBCore.Functions.GetPlayerData().citizenid == v.cid or v.cid == 2 then
-										return true end
-									end	
-								end	
-							end	
-						end
-					},
-				}
-		if Config.OxTarget then		
-			stashes = exports.ox_target:addBoxZone({ coords = v.loc, size = vec(1,1,2), rotation = 0, debug = false, options = optionsox})
-		elseif Config.interact then
-			exports.interact:AddInteraction({ coords = v.loc, distance = 8.0, interactDst = 2.0, id = 'mdstashes'..k, name = 'mdstashes'..k , options = options})
-		else
-    	    		exports['qb-target']:AddBoxZone('mdstashes'..k, v.loc, 1.5, 1.75, {name = 'mdstashes'..k,minZ = v.loc.z-2,maxZ = v.loc.z+2,}, {options = options, distance = 2.0})
-		end		
-	end	
-
-end)
 
 function StartRay()
     local run = true
@@ -148,17 +97,105 @@ RegisterNetEvent('md-stashes:client:doray', function()
 			{type = 'input',label = 'Password', description = 'Password Or Blank'},
 			{type = 'input', label = 'Citizen ID', description = 'Citizen ID or Blank'},
 		  })
-	local nameloc = "['"..input[1] .. "'] = { loc = vector3(" .. stashmake.x ..", " .. stashmake.y .. ", " .. stashmake.z .. ")"
-	if input[2] == ''then else input[2] = ", job = '" .. input[2] .. "'" end
-	if input[3] == ''then else input[3] = ", gang = '" .. input[3] .. "'" end
-	if input[4] == ''then else input[4] = ", rank = " .. input[4] .. "" end
-	if input[5] == ''then else input[5] = ", item = '" .. input[5] .. "'" end
-	if input[6] == ''then else input[6] = ", slots = " .. input[6] .. "" end
-	if input[7] == ''then else input[7] = ", weight = " .. input[7] .. "" end
-	if input[8] == ''then else input[8] = ", password = '" .. input[8] .. "'" end
-	if input[9] == ''then else input[9] = ", cid = '" .. input[9] .. "'" end
-	local copy = nameloc .. input[2] .. "" .. input[3] .. "" .. input[4] .. "" .. input[5] .. "" .. input[6].. "" .. input[7] .. "" .. input[8] .. "" .. input[9].. "},"
-	lib.setClipboard(copy)
-	QBCore.Functions.Notify("Info Copied To Your Clip Board, Paste Into Config.stash")
+		  local loc = json.encode({
+			x = math.ceil(stashmake.x * 100 + 0.1) / 100,
+			y = math.ceil(stashmake.y * 100 + 0.1) / 100,
+			z = math.ceil(stashmake.z * 100 + 0.1) / 100
+		  })
+		  if not input[2] then input[2] = 'none' end
+		  for i = 1, #input do 
+			print(input[i])
+		  end
+		 TriggerServerEvent('md-stashes:server:makenew', loc, input[1], input[2], input[3], input[4],input[5], input[6], input[7], input[8], input[9] )
 	end
+end)
+
+local function CreateTargets()
+	local prints = lib.callback.await('md-stashes:server:GetStashes')
+	for i = 1, #prints do
+	local v = prints[i]
+	local loc = json.decode(v.loc)
+	if v.job == nil then v.job = 1 end
+	if v.gang == nil then v.gang = 1 end
+	if v.targetlabel == nil then v.targetlabel = "Open Stash" end
+	if v.weight == nil then v.weight = Config.Defaultweight end
+	if v.slots == nil then v.slots = Config.Defaultslot end
+	if v.item == nil then v.item = 1 end
+	if v.citizenid == '0' then v.citizenid = 2 end
+	if v.rank == 0 then v.rank = 0 end
+	if v.password == 0 then v.password = 0 end 
+	local optionsox = {
+		{ label = v.targetlabel, onSelect = function() 	OpenStash(v.name, v.weight, v.slot, v.password) end,
+			 canInteract = function()
+				if QBCore.Functions.GetPlayerData().job.name == v.job and QBCore.Functions.GetPlayerData().job.grade.level >= v.rank or v.job == 1 then
+					if QBCore.Functions.GetPlayerData().gang.name == v.gang and QBCore.Functions.GetPlayerData().gang.grade.level >= v.rank or v.gang == 1 then
+						if v.item == 1 or QBCore.Functions.HasItem(v.item) then
+							if QBCore.Functions.GetPlayerData().citizenid == v.citizenid or v.citizenid == 2 then
+							return true end
+						end	
+					end	
+				end	
+			end
+
+		}
+	}
+	local options = {
+		{ label = v.targetlabel, action = function() 	OpenStash(v.name, v.weight, v.slot, v.password) end,
+			 canInteract = function()
+				if QBCore.Functions.GetPlayerData().job.name == v.job and QBCore.Functions.GetPlayerData().job.grade.level >= v.rank or v.job == 1 then
+					if QBCore.Functions.GetPlayerData().gang.name == v.gang and QBCore.Functions.GetPlayerData().gang.grade.level >= v.rank or v.gang == 1 then
+						if v.item == 1 or QBCore.Functions.HasItem(v.item) then
+							if QBCore.Functions.GetPlayerData().citizenid == v.citizenid or v.citizenid == 2 then
+							return true end
+						end	
+					end	
+				end	
+			end
+		},
+	}
+	if Config.OxTarget then		
+		stashes = exports.ox_target:addBoxZone({name = 'mdstashes' .. v.id, coords = vector3(loc.x, loc.y,loc.z), size = vec(1,1,2), rotation = 0, debug = false, options = optionsox})
+	elseif Config.interact then
+		exports.interact:AddInteraction({ coords = vector3(loc.x, loc.y,loc.z), distance = 8.0, interactDst = 2.0, id = 'mdstashes'..v.id, name = 'mdstashes'..v.id}, {options = options})
+	else
+		exports['qb-target']:AddBoxZone('mdstashes'..v.id, vector3(loc.x, loc.y,loc.z), 1.5, 1.75, {name = 'mdstashes'..v.id, minZ = loc.z-2,maxZ = loc.z+2,}, {options = options, distance = 2.0})
+	end	
+end		
+end
+
+
+local function DestroyTargets()
+	local prints = lib.callback.await('md-stashes:server:GetStashes')
+
+	for i = 1, #prints do
+		local v = prints[i]
+		print(v.id, 'md-stashes'..v.id)
+		if v.job == nil then v.job = 1 end
+		if v.gang == nil then v.gang = 1 end
+		if v.targetlabel == nil then v.targetlabel = "Open Stash" end
+		if v.weight == nil then v.weight = Config.Defaultweight end
+		if v.slots == nil then v.slots = Config.Defaultslot end
+		if v.item == nil then v.item = 1 end
+		if v.cid == 0 then v.cid = 2 end
+		if v.rank == 0 then v.rank = 0 end
+		if v.password == 0 then v.password = 0 end 
+		if Config.OxTarget then
+			exports.ox_target:removeZone('mdstashes' .. v.id)
+		elseif Config.Interact then
+			exports.interact:RemoveInteraction('mdstashes'..v.id)
+		else
+			 exports['qb-target']:RemoveZone('md-stashes'..v.id)  
+		end
+	end
+end
+
+RegisterNetEvent('md-stashes:client:makenew', function()
+DestroyTargets()
+Wait(1000)
+CreateTargets()
+end)
+
+CreateThread(function()
+
+	CreateTargets()
 end)
