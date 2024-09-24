@@ -46,10 +46,17 @@ Run The SQL
 
 
 IF YOU USE NEW QB OR NEW PS-INVENTORY FROM 07/24/2024 OR AFTER  mark Config.Inv to be qb
+- **STEP 5**
+SAVE A COPY OF YOUR MDSTASHES SQL TABLE BY EXPORTING IT
+
+IF YOU USE AN OLD VERSION USE THE COMMAND ImportConfigStashes TO IMPORT THE STASHES FROM YOUR config
+THEN USE ConvertStashSQL TO USE THE NEWEST VERSION OF THE SQL IT WILL BE FUNKY FOR ABOUT 2 MINUTES THEN YOU WILL BE GOOD
 
 <h1>How It Works</h1>
 
 1) use command newstash and fill in the things you want
+
+
 if you do not want an option LEAVE BLANK
 for example. if you dont want the stash job locked, leave the job category blank.
 when you hit enter it will create a stash in the sql. If you fuck up, how? its fill in the blank. BUT IF YOU DO, just delete the line in the table and restart the script. Badabing badaboop
