@@ -139,7 +139,7 @@ end
 
 function AddBoxZone(name, coords, options)
     if Config.Target == 'ox' then 
-       name = exports.ox_target:AddBoxZone({coords = coords, size = vec3(1,1,1), options = {
+       name = exports.ox_target:addBoxZone({coords = coords, size = vec3(1,1,1), options = {
             {label = options.label, event = options.event or nil,onSelect = options.action or nil, canInteract = options.canInteract,}
        }} )
     elseif Config.Target == 'qb' then
