@@ -65,8 +65,8 @@ local function CreateTargets()
 				AddBoxZone('md-stashes' .. v.id, vector3(loc.x, loc.y, loc.z),
 					{ label = data['targetlabel'], action = function() 	OpenStash(v.name, data['weight'], data['slots'], data['password']) end,
 						canInteract = function()
-							if QBCore.Functions.GetPlayerData().job.name == data['job'] and QBCore.Functions.GetPlayerData().job.grade.level >= rank or data['job'] == false then print('passed rank check')
-								if QBCore.Functions.GetPlayerData().gang.name == data['gang'] and QBCore.Functions.GetPlayerData().gang.grade.level >= rank or data['gang'] == false then print('passed rank check2')
+							if QBCore.Functions.GetPlayerData().job.name == data['job'] and QBCore.Functions.GetPlayerData().job.grade.level >= rank or data['job'] == false then 
+								if QBCore.Functions.GetPlayerData().gang.name == data['gang'] and QBCore.Functions.GetPlayerData().gang.grade.level >= rank or data['gang'] == false then 
 									if data['item'] == false or QBCore.Functions.HasItem(''..data['item']..'') == true then 
 										if QBCore.Functions.GetPlayerData().citizenid == data['citizenid'] or data['citizenid'] == false then
 										return true end
@@ -84,8 +84,8 @@ local function CreateTargets()
 				AddEntityTarg(storages[i],
 					{ label = data['targetlabel'], action = function() 	OpenStash(v.name, data['weight'], data['slots'], data['password']) end,
 						 canInteract = function()
-							if QBCore.Functions.GetPlayerData().job.name == data['job'] and QBCore.Functions.GetPlayerData().job.grade.level >= rank or data['job'] == false then print('passed rank check')
-								if QBCore.Functions.GetPlayerData().gang.name == data['gang'] and QBCore.Functions.GetPlayerData().gang.grade.level >= rank or data['gang'] == false then print('passed rank check2')
+							if QBCore.Functions.GetPlayerData().job.name == data['job'] and QBCore.Functions.GetPlayerData().job.grade.level >= rank or data['job'] == false then 
+								if QBCore.Functions.GetPlayerData().gang.name == data['gang'] and QBCore.Functions.GetPlayerData().gang.grade.level >= rank or data['gang'] == false then 
 									if data['item'] == false or QBCore.Functions.HasItem(''..data['item']..'') == true then 
 										if QBCore.Functions.GetPlayerData().citizenid == data['citizenid'] or data['citizenid'] == false then
 										return true end
