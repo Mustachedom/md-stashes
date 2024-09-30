@@ -30,7 +30,7 @@
 - Ox - Ps - Lj - Qb Inventory
 
 <h1> Disclaimer </h1>
-### if you use qb-inventory, they have a bug in their code that skips over data once a stash has been opened. in essense if you change weight and slot size from a pre existing stash it wont work. 
+ if you use qb-inventory, they have a bug in their code that skips over data once a stash has been opened. in essense if you change weight and slot size from a pre existing stash it wont work. 
 You can find a fix for it in qb-inventory pull requests as I have sent one in to fix that. 
 
 ### some inventories hate special character so just dont use - or _ symbols just write the name
