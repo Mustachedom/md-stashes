@@ -12,8 +12,8 @@ RegisterNetEvent('md-stashes:client:doray', function()
 			{type = 'input', label = 'gang', description = 'Gang Or Blank'},
 			{type = 'input', label = 'rank', description = 'Rank Or Blank'},
 			{type = 'input', label = 'item', description = 'Item or Blank'},
-			{type = 'input', label = 'Slot Size', description = 'Slot Size or Blank'},
-			{type = 'input', label = 'Weight', description = 'Weight Size or Blank'},
+			{type = 'number', label = 'Slot Size', description = 'Slot Size or Blank'},
+			{type = 'number', label = 'Weight', description = 'Weight Size or Blank'},
 			{type = 'input',label = 'Password', description = 'Password Or Blank'},
 			{type = 'input', label = 'Citizen ID', description = 'Citizen ID or Blank'},
 		  })
@@ -33,8 +33,8 @@ RegisterNetEvent('md-stashes:client:doray', function()
 				{type = 'input', label = 'gang', description = 'Gang Or Blank'},
 				{type = 'input', label = 'rank', description = 'Rank Or Blank'},
 				{type = 'input', label = 'item', description = 'Item or Blank'},
-				{type = 'input', label = 'Slot Size', description = 'Slot Size or Blank'},
-				{type = 'input', label = 'Weight', description = 'Weight Size or Blank'},
+				{type = 'number', label = 'Slot Size', description = 'Slot Size or Blank'},
+				{type = 'number', label = 'Weight', description = 'Weight Size or Blank'},
 				{type = 'input',label = 'Password', description = 'Password Or Blank'},
 				{type = 'input', label = 'Citizen ID', description = 'Citizen ID or Blank'},
 			  })
