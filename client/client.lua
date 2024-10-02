@@ -10,7 +10,7 @@ RegisterNetEvent('md-stashes:client:doray', function()
 			{type = 'input', label = 'name', description = 'Name Of Stash', required = true},
 			{type = 'input', label = 'job', description = 'Job Or Blank'},
 			{type = 'input', label = 'gang', description = 'Gang Or Blank'},
-			{type = 'input', label = 'rank', description = 'Rank Or Blank'},
+			{type = 'number', label = 'rank', description = 'Rank Or Blank'},
 			{type = 'input', label = 'item', description = 'Item or Blank'},
 			{type = 'number', label = 'Slot Size', description = 'Slot Size or Blank'},
 			{type = 'number', label = 'Weight', description = 'Weight Size or Blank'},
@@ -24,6 +24,7 @@ RegisterNetEvent('md-stashes:client:doray', function()
 			h = heading
 		  })
 		  if not input[2] then input[2] = 'none' end
+		  if not input[4] then input[4] = 0 end
 		 TriggerServerEvent('md-stashes:server:makenew', loc, input[1], input[2], input[3], input[4],input[5], input[6], input[7], input[8], input[9], object )
 	else	 
 		if stashmake then
@@ -31,7 +32,7 @@ RegisterNetEvent('md-stashes:client:doray', function()
 				{type = 'input', label = 'name', description = 'Name Of Stash', required = true},
 				{type = 'input', label = 'job', description = 'Job Or Blank'},
 				{type = 'input', label = 'gang', description = 'Gang Or Blank'},
-				{type = 'input', label = 'rank', description = 'Rank Or Blank'},
+				{type = 'number', label = 'rank', description = 'Rank Or Blank'},
 				{type = 'input', label = 'item', description = 'Item or Blank'},
 				{type = 'number', label = 'Slot Size', description = 'Slot Size or Blank'},
 				{type = 'number', label = 'Weight', description = 'Weight Size or Blank'},
@@ -44,6 +45,7 @@ RegisterNetEvent('md-stashes:client:doray', function()
 				z = math.ceil(stashmake.z * 100 + 0.1) / 100
 			  })
 			  if not input[2] then input[2] = 'none' end
+			  if not input[4] then input[4] = 0 end
 			 TriggerServerEvent('md-stashes:server:makenew', loc, input[1], input[2], input[3], input[4],input[5], input[6], input[7], input[8], input[9], nil )
 		end
 	end
@@ -60,7 +62,7 @@ local function CreateTargets()
 			local loc = json.decode(v.loc)
 			local data = json.decode(v.data)
 			local p = QBCore.Functions.GetPlayerData()
-			local rank = '' .. data['rank'] .. ''
+			local rank = data['rank']
 			if not data['object']  then 
 				AddBoxZone('md-stashes' .. v.id, vector3(loc.x, loc.y, loc.z),
 					{ label = data['targetlabel'], action = function() 	OpenStash(v.name, data['weight'], data['slots'], data['password']) end,
