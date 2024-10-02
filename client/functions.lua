@@ -156,14 +156,14 @@ end
 
 function AddEntityTarg(entity, options)
     if Config.Target == 'ox' then 
-        exports.ox_target:addLocalEntity(entity, {options = { label = options.label,  event = options.event or nil, onSelect = options.action or nil,  canInteract = options.canInteract, } })
+        exports.ox_target:addLocalEntity(entity, { label = options.label,  event = options.event or nil, onSelect = options.action or nil,  canInteract = options.canInteract})
     elseif Config.Target == 'qb' then
         exports['qb-target']:AddTargetEntity(entity, {options = {
-			{icon = options.icon, label = options.label, event = options.event or nil, action = options.action or nil }
+			{icon = options.icon, label = options.label, event = options.event or nil, action = options.action or nil, canInteract = options.canInteract, }
 		}, distance = 2.5})
     elseif Config.Target == 'interaction' then
         exports.interact:AddLocalEntityInteraction({entity = entity, name = entity, id = entity, distance = 8.0, interactDst = 2.0, options = {
-            {icon = options.icon, label = options.label, event = options.event or nil, action = options.action or nil }
+            {icon = options.icon, label = options.label, event = options.event or nil, action = options.action or nil, canInteract = options.canInteract, }
         }})
     end
 end
