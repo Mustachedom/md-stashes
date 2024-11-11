@@ -1,7 +1,7 @@
 <h1>md-stashes</h1>
 <div align="center">
   <a href="https://discord.gg/sAMzrB4DDx">
-    <img align="center" src="https://cdn.discordapp.com/attachments/1164709522691076120/1185676859363557457/Discord_logo.svg.png?ex=65907aa0&is=657e05a0&hm=dd2a8924c3a3d84507747ab2bac036e5fc219c697e084c9aa13ba468ff725bde&" width="100">
+    <img src="https://files.fivemerr.com/images/7ae3f8d3-60bc-4ec5-8502-93bb8a807eff.png" width =200px>
   </a><br>
   <a href="https://discord.gg/sAMzrB4DDx">Mustache Scripts Discord</a><br>
 </div>
@@ -20,51 +20,74 @@
 
 <h1>Dependencies</h1>
 
-
 - [ox_lib](https://github.com/overextended/ox_lib/releases)
 
 - [World Interactions](https://github.com/darktrovx/interact) - optional
 
 - [qb-target](https://github.com/qbcore-framework/qb-target)  - [ox_target](https://github.com/overextended/ox_target) - optionals
 
-- Ox - Ps - Lj - Qb Inventory
+<h1> Inventory Compatability </h1>
+
+- qb
+- ps
+- lj
+- ox <- You should **only** be using thing inventory if you run qb at all
+- qs maybe
 
 <h1> Disclaimer </h1>
- if you use qb-inventory, they have a bug in their code that skips over data once a stash has been opened. in essense if you change weight and slot size from a pre existing stash it wont work. 
-You can find a fix for it in qb-inventory pull requests as I have sent one in to fix that. 
+since qb updated their inventory and <b>changed</b> their event names it caused suit for others to change event names as well so here is a little guide how to set this correctly
+
+- if you use ox 
+  - set Config.Inv = 'ox'
+- if you use **old** qb (click tab and if two inventorys pop up side by side its old) 
+  - Config.Inv = 'oldqb'
+- if you use **new** qb (click tab and if one inventory pops up) then 
+  - Config.Inv = 'qb'
+- if you use ps-inventory then **try**
+  - Config.Inv = 'qb'
+    - if that doesn't work do Config.Inv = 'oldqb'
+      - if that doesn't work then set Config.Inv = 'outdated'
+- if you use lj-inventory 
+  - Config.Inv = 'outdated'
+- if you use qs-inventory then 
+  - Config.Inv = 'outdated'
+- if you use ak47_qb_inventory then 
+  - Config.Inv = stop. he is known for leaks switch to ox
+
 
 ### some inventories hate special character so just dont use - or _ symbols just write the name
 
 <h1>How to install like a fuckin boss</h1>
 
-- **STEP 1**
-Drag Resource into your script folder
+<b> Step One </b>
 
-- **STEP 2** 
-fill out your config
+- Run The SQL
+  - How Do I Do That?
+    - Youtube has a lot of videos
+  - Do I need To?
+    - I just said to. 
+  - How Do I Find My Database
+    - Ask your server host
 
-- **STEP 3**
-IF YOU USE OLD QB-INVENTORY/ LJ-INVENTORY OR PS-INVENTORY PRIOR TO 07/24/2024 THEN MARK CONFIG.INV TO oldqb
+<b> Step Two </b>
+  
+- Fill out your config
+  - follow the disclaimer above
 
-- **STEP 4**
-Run The SQL
-
-
-IF YOU USE NEW QB OR NEW PS-INVENTORY FROM 07/24/2024 OR AFTER  mark Config.Inv to be qb
-- **STEP 5**
-SAVE A COPY OF YOUR MDSTASHES SQL TABLE BY EXPORTING IT
-
-IF YOU USE AN OLD VERSION USE THE COMMAND ImportConfigStashes TO IMPORT THE STASHES FROM YOUR config
-THEN USE ConvertStashSQL TO USE THE NEWEST VERSION OF THE SQL IT WILL BE FUNKY FOR ABOUT 2 MINUTES THEN YOU WILL BE GOOD
+<p> </p>
 
 <h1>How It Works</h1>
 
-1) use command newstash and fill in the things you want
+- use command newstash and fill in the things you want
+- use command editStashes to edit the required data to open stashes
+- use command DeleteStashes to delete stashes -- thanks @bobatari
 
+<h1> Common Questions </h1>
 
-if you do not want an option LEAVE BLANK
-for example. if you dont want the stash job locked, leave the job category blank.
-when you hit enter it will create a stash in the sql. If you fuck up, how? its fill in the blank. BUT IF YOU DO, just delete the line in the table and restart the script. Badabing badaboop
+- the items wont get out of the inventory and into my pockets
+  - not my scripts problem. This is merely a way to **open** stashes. thats it. once you open the stash my script stops. 
+- weapons lose durability when i put them in the stash
+  - again, not my script.
 
 <h1>Fivemerr</h1>
 This is NOT a requirement but something I personally use and believe in.

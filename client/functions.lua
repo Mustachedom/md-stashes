@@ -1,61 +1,42 @@
 local invcall = ''
 CreateThread(function()
-	if GetResourceState('ps-inventory') == 'started' then
-		invcall = 'ps-inventory'
-	elseif GetResourceState('qb-inventory') == 'started' then 
+    if GetResourceState('qb-inventory') == 'started' then
 		invcall = 'qb-inventory'
+	elseif GetResourceState('ps-inventory') == 'started' then
+		invcall = 'ps-inventory'
 	elseif GetResourceState('lj-inventory') == 'started' then
 		invcall = 'inventory'
 	end
 end)
-		
+
+local QBCore = exports['qb-core']:GetCoreObject()
+
+local function openInventory(name, weight, slot, password)
+	if Config.Inv == 'ox' then
+		exports.ox_inventory:openInventory('stash', {id = name})
+	elseif Config.Inv == 'oldqb' then 
+		Wait(100)
+		TriggerEvent(invcall..":client:SetCurrentStash", name)
+		TriggerServerEvent(invcall..":server:OpenInventory", "stash", name, {
+			maxweight = weight,
+			slots = slot,
+		})
+	elseif Config.Inv == 'outdated' then
+		local other = {maxweight = weight, slots = slot}
+		TriggerServerEvent("inventory:server:OpenInventory", "stash", "Stash_"..name, other)
+		TriggerEvent("inventory:client:SetCurrentStash", "Stash_"..name)
+	elseif Config.Inv == 'qb' then
+		TriggerServerEvent('md-stashes:server:OpenStash', name, weight, slot)
+	end
+end
 
 function OpenStash(name, weight, slot, password)
-	if password ~= 0 then
-		local input = lib.inputDialog('Password', {
-			 {type = 'input', label = 'Password', description = 'What Is The Password', required = true},
-		})
-		local combo = input[1]
-		if password == combo then
-			if Config.Inv == 'ox' then
-				exports.ox_inventory:openInventory('stash', {id = name})
-			elseif Config.Inv == 'oldqb' then 
-				Wait(100)
-				TriggerEvent(invcall..":client:SetCurrentStash", name)
-				TriggerServerEvent(invcall..":server:OpenInventory", "stash", name, {
-					maxweight = weight,
-					slots = slot,
-				})
-			elseif Config.Inv == 'qs' then
-				local other = {}
-				other.maxweight = weight -- Custom weight statsh
-				other.slots = slot -- Custom slots spaces
-				TriggerServerEvent("inventory:server:OpenInventory", "stash", "Stash_"..name, other)
-				TriggerEvent("inventory:client:SetCurrentStash", "Stash_"..name)
-			elseif Config.Inv == 'qb' then
-				TriggerServerEvent('md-stashes:server:OpenStash', name, weight, slot)
-			end
-		end	
-	else
-		if Config.Inv == 'ox' then
-			exports.ox_inventory:openInventory('stash', {id = name})
-		elseif Config.Inv == 'oldqb' then 
-			Wait(100)
-			TriggerEvent(invcall..":client:SetCurrentStash", name)
-			TriggerServerEvent(invcall..":server:OpenInventory", "stash", name, {
-				maxweight = weight,
-				slots = slot,
-			})
-		elseif Config.Inv == 'qs' then
-			local other = {}
-			other.maxweight = weight -- Custom weight statsh
-			other.slots = slot -- Custom slots spaces
-			TriggerServerEvent("inventory:server:OpenInventory", "stash", "Stash_"..name, other)
-			TriggerEvent("inventory:client:SetCurrentStash", "Stash_"..name)
-		elseif Config.Inv == 'qb' then
-			TriggerServerEvent('md-stashes:server:OpenStash', name, weight, slot)
-		end
-	end
+    if password then
+        local input = lib.inputDialog('Password', {{type = 'input', label = 'Password', description = 'What Is The Password', required = true}, })
+        if password == input[1] then openInventory(name, weight, slot, password) end
+    else
+        openInventory(name, weight, slot, password)
+    end
 end
 
 function StartRay()
@@ -139,7 +120,7 @@ end
 
 function AddBoxZone(name, coords, options)
     if Config.Target == 'ox' then 
-       name = exports.ox_target:addBoxZone({coords = coords, size = vec3(1,1,1), options = {
+       name = exports.ox_target:addBoxZone({name = name, coords = vector3(coords.x, coords.y, coords.z-1), size = vec3(1,1,1), options = {
             {label = options.label, event = options.event or nil,onSelect = options.action or nil, canInteract = options.canInteract,}
        }} )
     elseif Config.Target == 'qb' then
@@ -166,4 +147,35 @@ function AddEntityTarg(entity, options)
             {icon = options.icon, label = options.label, event = options.event or nil, action = options.action or nil, canInteract = options.canInteract, }
         }})
     end
+end
+
+function RemoveZones(spawned)
+	local prints = lib.callback.await('md-stashes:server:GetStashes')
+	for k, v in pairs (prints) do 
+		local js = json.decode(v.data)
+		if js['object'] == false then
+			if Config.Target == 'ox' then
+				exports.ox_target:removeZone('mdstashes'..v.name)
+			elseif Config.Target == 'qb' then
+				exports['qb-target']:RemoveZone('mdstashes'..v.name)
+			elseif Config.Target == 'interaction' then
+				exports.interact:RemoveInteraction('mdstashes'..v.name)
+			end
+		else
+			DeleteEntity(spawned[k])
+		end
+	end
+end
+
+function check(data)
+	local p = QBCore.Functions.GetPlayerData()
+	if p.job.name == data['job'] and p.job.grade.level >= data['rank'] or data['job'] == false then
+		if p.gang.name == data['gang'] and p.gang.grade.level or data['gang'] == false then
+			if data['citizenid'] == false or data['citizenid'] == p.citizenid then
+				if data['item'] == false or QBCore.Functions.HasItem(data['item']) then
+					return true
+				end
+			end
+		end
+	end
 end

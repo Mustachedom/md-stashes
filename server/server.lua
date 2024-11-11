@@ -6,6 +6,7 @@ local headers = {
             ['Authorization'] = logapi,
             ['Content-Type'] = 'application/json',
     }
+local key = 'adsjhaskd' .. math.random(1, 1000000) .. 'asdasd' .. math.random(1,5) .. math.random(1,5) .. 'asdasd' .. 'ertyhzxcdjSA'
 
 CreateThread(function()
 if logs then 
@@ -34,6 +35,9 @@ if logs == false then return end
      SetTimeout(500, function()
          PerformHttpRequest(endpoint, function(status, _, _, response)
              if status ~= 200 then 
+                if not response then 
+                    print('^1[ERROR] ^7Failed to send logs to fivemerr')
+                    return end
                  if type(response) == 'string' then
                      response = json.decode(response) or response
                  end
@@ -48,12 +52,7 @@ if Config.Inv == 'ox' then
     for k, v in pairs (Config.stash) do 
         if v.weight == nil then v.weight = Config.Defaultweight end
 	    if v.slots == nil then v.slots = Config.Defaultslot end
-        local stash = {
-        id = k,
-        label = v.name,
-        slots = v.slots,
-        weight = v.weight,
-        }
+        local stash = { id = k, label = v.name, slots = v.slots, weight = v.weight, }
         exports.ox_inventory:RegisterStash(stash.id, stash.label, stash.slots, stash.weight)
     end
 end 
@@ -67,48 +66,26 @@ lib.addCommand('newstash', {
     local src = source
     local Player = QBCore.Functions.GetPlayer(src) 
     local info = Player.PlayerData.charinfo
-    TriggerClientEvent('md-stashes:client:doray', src)
+    local send =  lib.callback.await('md-stashes:client:makeNew', src, key)
+    if not send then return end
     Log('ID: ' .. source .. ' Name: ' .. info.firstname .. ' ' .. info.lastname .. ' Used Command newstash', 'command')
 end)
 
 RegisterServerEvent('md-stashes:server:OpenStash', function(name, weight, slot)
     local src = source
-    print(name, weight, slot)
     local Player = QBCore.Functions.GetPlayer(src)
     local data = { label = name, maxweight = weight, slots = slot }
     if GetResourceState('qb-inventory') == 'started' then
     	exports['qb-inventory']:OpenInventory(source, name, data)
    elseif GetResourceState('ps-inventory') == 'started' then
-	exports['ps-inventory']:OpenInventory(source, name, data)
+	    exports['ps-inventory']:OpenInventory(source, name, data)
    else
-      print('follow the readme')
+      print('^1 You Wouldnt See This If You Had Read The ReadMe.md')
    end
 end)
 
-RegisterServerEvent('md-stashes:server:makenew', function(loc, name, job, gang, rank, item, slots, weight, password, cid, object)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    local location = json.decode(loc)
-    if job == "" then job = false end
-    if gang == "" then gang = false end
-    if rank == "" then rank = 0 end
-    if item == "" then item = false end
-    if slots == "" then slots = Config.Defaultslot end
-    if weight == "" then weight = Config.Defaultweight end
-    if password == "" then password = 0 end
-    if cid == "" then cid = false end
-    local data = json.encode({
-        job = job,
-        gang = gang,
-        rank = rank,
-        item = item,
-        weight = weight,
-        slots = slots,
-        targetlabel = 'Open Stash',
-        password = password,
-        citizenid = cid,
-        object = object
-    })
+RegisterServerEvent('md-stashes:server:makenew', function(loc, name, data)
+    if not IsPlayerAceAllowed(source, 'command') then return false end
     MySQL.insert('INSERT INTO mdstashes SET loc = ?, name = ?, data = ?',
     {loc, name, data})
     TriggerClientEvent('md-stashes:client:makenew', -1)
@@ -116,7 +93,7 @@ end)
 
 lib.callback.register('md-stashes:server:GetStashes', function(source)
    local result = MySQL.query.await('SELECT * FROM mdstashes',{})
-   local stashes = {}
+   if not result[1] then print('^1 You Either Didnt Run The SQL Or You Have No Stashes') return false end
    for i = 1, #result do
         local data = json.decode(result[i].data)
         if GetResourceState('ox_inventory') == 'started' then
@@ -126,28 +103,48 @@ lib.callback.register('md-stashes:server:GetStashes', function(source)
    return result
 end)
 
-lib.addCommand('ImportConfigStashes', {
-    help = "YOU ONLY NEED TO DO THIS ONCE, LITERALLY ONE TIME EVER",
+lib.callback.register('md-stashes:server:GetKeys', function(source)
+    if not IsPlayerAceAllowed(source, 'command') then return false end
+    return key
+ end)
+
+lib.addCommand('editStashes', {
+    help = "Edit Stash Data",
     restricted = 'group.admin',
 }, function(source, args, raw)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src) 
-    local info = Player.PlayerData.charinfo
-    for k, v in pairs (Config.stash) do 
-        local loc = json.encode({
-            x = v.loc.x,
-            y = v.loc.y,
-            z = v.loc.z
-        })
-        if v.loc == nil then return end
-        if v.cid == nil then v.cid = '0' end
-        if v.rank == nil then v.rank = 0 end
-        if v.password == nil then v.password = 0 end
-        MySQL.insert('INSERT INTO mdstashes SET loc = ?, name = ?, job = ?, gang = ?, rank = ?, weight = ?, slots = ?, item = ?, targetlabel = ?, password = ?, citizenid = ?',
-        {loc, k,v.job,v.gang, v.rank ,v.weight,v.slots,v.item, 'Open Stash', v.password, v.cid})
-    end
-    Log('ID: ' .. source .. ' Name: ' .. info.firstname .. ' ' .. info.lastname .. ' Used Command IMPORT CONFIG STASHES', 'command')
+    if not IsPlayerAceAllowed(source, 'command') then return false end
+    local Data = MySQL.query.await('SELECT * FROM mdstashes')
+    local options = lib.callback.await('md-stashes:client:edit', src, Data)
+    if not options then return end
+end)
 
+lib.addCommand('DeleteStashes', {
+    help = "Delete A Stash",
+    restricted = 'group.admin',
+}, function(source, args, raw)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src) 
+    if not IsPlayerAceAllowed(source, 'command') then return false end
+    local Data = MySQL.query.await('SELECT * FROM mdstashes')
+    local options = lib.callback.await('md-stashes:client:deleteSelectedStash', src, Data)
+    if not options then return end
+end)
+
+
+RegisterServerEvent('md-stashes:server:edit', function(new)
+    local src = source
+    if not IsPlayerAceAllowed(src, 'command') then return false end
+    MySQL.query.await('UPDATE mdstashes SET data = ? WHERE name = ?', {new[1].data, new[1].name})
+    TriggerClientEvent('md-stashes:client:makenew', -1)
+end)
+
+RegisterServerEvent('md-stashes:server:deleteStash', function(name)
+    local src = source
+    if not IsPlayerAceAllowed(src, 'command') then return false end
+    MySQL.query.await('DELETE FROM mdstashes WHERE name = ?', {name})
+    TriggerClientEvent('md-stashes:client:makenew', -1)
 end)
 
 lib.addCommand('ConvertStashSQL', {
@@ -156,6 +153,7 @@ lib.addCommand('ConvertStashSQL', {
 }, function(source, args, raw)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src) 
+    if not IsPlayerAceAllowed(source, 'command') then return false end
     local Data = MySQL.query.await('SELECT * FROM mdstashes')
     if not Data[1].data then
         MySQL.Async.execute('ALTER TABLE mdstashes ADD COLUMN data VARCHAR(255);', {})
