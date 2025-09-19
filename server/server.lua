@@ -63,7 +63,7 @@ RegisterNetEvent('md-stashes:server:saveEdit', function(data)
     stashes = MySQL.query.await('SELECT * FROM mdstashes',{})
     TriggerClientEvent('md-stashes:client:newstash', -1)
 end)
-ps.versionCheck('md-stashes', '3.0.0')
+ps.versionCheck('md-stashes', 'https://raw.githubusercontent.com/Mustachedom/md-stashes/refs/heads/ps_lib/changelog.md','https://github.com/Mustachedom/md-stashes/tree/ps_lib')
 RegisterNetEvent('md-stashes:server:changeLocation', function(data)
     local src = source
     if not IsPlayerAceAllowed(source, 'command') then return false end
