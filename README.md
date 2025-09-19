@@ -32,38 +32,19 @@
     - if you dont know how, click this image below
     - [![YouTube Video](https://img.youtube.com/vi/8QpFOluK_xo/hqdefault.jpg)](https://www.youtube.com/watch?v=8QpFOluK_xo)
 
-<b> Step Two </b>
+### STEP 2
   
 - Fill out your config
-  - follow the disclaimer above
-
-<p> </p>
-
-<h1>How It Works</h1>
-
-- use command newstash and fill in the things you want
-- use command editStashes to edit the required data to open stashes
-- use command DeleteStashes to delete stashes -- thanks @bobatari
-
-<h1> Common Questions </h1>
-
-- the items wont get out of the inventory and into my pockets
-  - not my scripts problem. This is merely a way to **open** stashes. thats it. once you open the stash my script stops. 
-- weapons lose durability when i put them in the stash
-  - again, not my script.
-
-<h1>Fivemerr</h1>
-This is NOT a requirement but something I personally use and believe in.
 
 
-- to integrate with fivemerr make sure you have  ```set fivemerrLogs "API_KEY"```   in your server.cfg
-   
-- Head to /server/bridge.lua and line 3 turn local logs = true
-  
-- profit
+# How It Works
 
-Why integrate with Fivemerr? Its a great place to store logs as it doesnt rely on discord webhooks and its far easier to search through
+- use command newStash and fill in the things you want
+- use command editStash to edit the required data to open stashes
 
-As well as a place to offload images and videos from fivem that doesnt rely on discord since discord API will be automatically deleting images and videos after a certain amount of time If you need an invite to their server look below
-- [Fivemerr Discord](https://discord.com/invite/fivemerr)
-- [Fivemerr Docs](https://docs.fivemerr.com/)
+# Common Questions
+
+- ###     the items wont get out of the inventory and into my pockets
+  - #### `not my scripts problem. This is merely a way to **open** stashes. thats it. once you open the stash my script stops.`
+- ###    weapons lose durability when i put them in the stash
+  - #### `again, not my script.`
