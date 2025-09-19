@@ -52,7 +52,7 @@ Lang.Ui = {
         objHead = 'Choose Object:',
         objDesc = 'Select An Object To Place',
         cancel = 'Cancel',
-        submit = 'Submit'  
+        submit = 'Submit'
     }
 }
 return Lang

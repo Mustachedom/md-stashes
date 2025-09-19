@@ -1,6 +1,6 @@
 Config = {}
 ps = exports.ps_lib:init()
-ps.loadLangs('en')
+ps.loadLangs('uwu')
 
 Config.OldData = false -- Enable this if you are using old data from before version 3.0.0 | this loads command ADjustStashes to adjust old data to new data format
                       -- Turn to false after you run the command IF you need to use it
