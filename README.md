@@ -1,73 +1,36 @@
-<h1>md-stashes</h1>
+#  md-stashes    - An easy way to place stashes throughout your server
+
+
 <div align="center">
   <a href="https://discord.gg/sAMzrB4DDx">
-    <img src="https://files.fivemerr.com/images/7ae3f8d3-60bc-4ec5-8502-93bb8a807eff.png" width =200px>
-  </a><br>
-  <a href="https://discord.gg/sAMzrB4DDx">Mustache Scripts Discord</a><br>
+    <img src="https://i.imgur.com/t65G9Z0.png" width="200" alt="Mustache Scripts Logo">
+  </a>
+  <br>
+  <a href="https://discord.gg/sAMzrB4DDx"><strong>Join Mustache Scripts Discord</strong></a>
 </div>
 
-<h1>Credits</h1>
+## 📦 Dependencies
 
-- Big Credit to [Bostra](https://discord.gg/5ncbwMNq). if you have been around you may have seen him post some free scripts and help people, There was definetly times I dm'd him saying what the fuck am I doing and he helped keep me sane as well as making the raycast thing.
+| Dependency | Link |
+|----------|------|
+| `ps_lib` | [GitHub - Project-Sloth/ps_lib](https://github.com/Project-Sloth/ps_lib) |
+| `Read`   | [Read Docs](https://letters.hookedonphonics.com/us/read-guaranteed-G14.html) |
+
+> ⚠️ Ensure all dependencies are installed, up to date, and ensure **BEFORE** this script, before proceeding.
+
+<h1>Credits</h1>
 
 - shout out to my beta testers who had to deal with me a lot!
 
 - Our partner [1of1 Servers]( https://1of1servers.com/) and their [discord](https://discord.gg/1of1servers) for their amazing server hosting! absolutely top notch.
 
-<h1>Showcase Video Done By ShooterMcGamin</h1>
-
-- [Link](https://www.youtube.com/watch?v=N0zdbZ3CM9Y)
-
-<h1>Dependencies</h1>
-
-- [ox_lib](https://github.com/overextended/ox_lib/releases)
-
-- [World Interactions](https://github.com/darktrovx/interact) - optional
-
-- [qb-target](https://github.com/qbcore-framework/qb-target)  - [ox_target](https://github.com/overextended/ox_target) - optionals
-
-<h1> Inventory Compatability </h1>
-
-- qb
-- ps
-- lj
-- ox <- You should **only** be using thing inventory if you run qb at all
-- qs maybe
-
-<h1> Disclaimer </h1>
-since qb updated their inventory and <b>changed</b> their event names it caused suit for others to change event names as well so here is a little guide how to set this correctly
-
-- if you use ox 
-  - set Config.Inv = 'ox'
-- if you use **old** qb (click tab and if two inventorys pop up side by side its old) 
-  - Config.Inv = 'oldqb'
-- if you use **new** qb (click tab and if one inventory pops up) then 
-  - Config.Inv = 'qb'
-- if you use ps-inventory then **try**
-  - Config.Inv = 'qb'
-    - if that doesn't work do Config.Inv = 'oldqb'
-      - if that doesn't work then set Config.Inv = 'outdated'
-- if you use lj-inventory 
-  - Config.Inv = 'outdated'
-- if you use qs-inventory then 
-  - Config.Inv = 'outdated'
-- if you use ak47_qb_inventory then 
-  - Config.Inv = stop. he is known for leaks switch to ox
-
-
-### some inventories hate special character so just dont use - or _ symbols just write the name
 
 <h1>How to install like a fuckin boss</h1>
 
-<b> Step One </b>
-
-- Run The SQL
-  - How Do I Do That?
-    - Youtube has a lot of videos
-  - Do I need To?
-    - I just said to. 
-  - How Do I Find My Database
-    - Ask your server host
+### STEP 1
+- `Run SQL`
+    - if you dont know how, click this image below
+    - [![YouTube Video](https://img.youtube.com/vi/8QpFOluK_xo/hqdefault.jpg)](https://www.youtube.com/watch?v=8QpFOluK_xo)
 
 <b> Step Two </b>
   

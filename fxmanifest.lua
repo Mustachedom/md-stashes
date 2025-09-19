@@ -3,19 +3,27 @@ author "mustache_dom"
 description "stashes by mustache dom"
 fx_version "cerulean"
 game "gta5"
-version '2.1.0'
-
+version '3.0.0'
+ui_page 'web/build/index.html'
 client_scripts {
 	'client/**.lua',
 }
+
 server_scripts {
-	'server/**.lua',
 	'@oxmysql/lib/MySQL.lua',
+    'server/**.lua',
 }
+
 shared_scripts {
-    'shared/**.lua',
-	 '@ox_lib/init.lua',
+	'@ox_lib/init.lua',
+	'shared/**.lua',
 }
+
 
 lua54 'yes'
 
+files {
+  'locales/*.lua',
+  'web/build/index.html',
+  'web/build/**/*'
+}
