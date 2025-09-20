@@ -1,3 +1,14 @@
 Newest Build: 3.0.0
 - updated to ps_lib
 - made a Ui
+
+Newest Build: 3.0.1
+- Ui adjusment
+   - different colors on select menu
+   - centered edit stash Page
+
+- added Config options for objects
+  - added square wooden box
+  - added shipping container
+
+- added `fix` for client side item check

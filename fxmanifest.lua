@@ -3,7 +3,7 @@ author "mustache_dom"
 description "stashes by mustache dom"
 fx_version "cerulean"
 game "gta5"
-version '3.0.0'
+version '3.0.1'
 ui_page 'web/build/index.html'
 client_scripts {
 	'client/**.lua',
