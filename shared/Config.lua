@@ -11,6 +11,8 @@ Config.Defaults = {
 
 Config.Objects = {
     {value = 'tr_prop_tr_chest_01a', label = 'Small Chest'},
-    {value = 'prop_champ_box_01', label = 'Medium Crate'},
-    {value = 'prop_box_wood05a', label = 'Large Crate'}
+    {value = 'prop_champ_box_01',    label = 'Medium Crate'},
+    {value = 'prop_box_wood05a',     label = 'Large Crate'},
+    {value = 'prop_lev_crate_01',    label = 'Large Wooden Crate'},
+    {value = 'prop_container_03mb', label = 'Shipping Container'},
 }

@@ -55,7 +55,7 @@ local function check(data)
         local need, have = 0, 0
         for k, v in pairs(data.item) do
             need = need + 1
-            if ps.getItem(v) then
+            if ps.hasItem(v) then
                 have = have + 1
             end
         end

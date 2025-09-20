@@ -106,6 +106,10 @@
     color: #fff;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     overflow: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .header {
