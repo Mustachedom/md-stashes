@@ -3,7 +3,16 @@ Lang = {}
 Lang.Fail = {
     tooFar = '%say asway ootay arfay otay iggertray %say',
 }
-
+Lang.Vendor = {
+    targetLabel = 'Uybay Ackpackbay',
+    targetIcon = 'fas fa-shopping-bag',
+    price = '$ %s',
+    inputTitle = 'Uybay Ackpackbay',
+    inputDesc = 'Aymentpay Ypetay',
+    inputOption1 = 'Ashcay',
+    inputOption2 = 'Ankbay',
+    menuTitle = 'Urchasepay Ackpacksbay',
+}
 Lang.Interact = {
     targetLabel = 'Openyay Ashstay',
     targetIcon = 'fas fa-box-open',

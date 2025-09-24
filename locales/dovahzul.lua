@@ -4,6 +4,17 @@ Lang.Fail = {
     tooFar = '%s Zeymah — Zu’u lost krosis %s! 🐉',
 }
 
+Lang.Vendor = {
+    targetLabel = 'Lahney Thu’um',
+    targetIcon = 'fas fa-shopping-bag',
+    price = '$ %s',
+    inputTitle = 'Lahney Thu’um',
+    inputDesc = 'Fahliil Kren',
+    inputOption1 = 'Golz',
+    inputOption2 = 'Bankor',
+    menuTitle = 'Lahney Fron Yol',
+}
+
 Lang.Interact = {
     targetLabel = 'Fen kos Nahkip — Open Stash',
     targetIcon = 'fas fa-box-open',

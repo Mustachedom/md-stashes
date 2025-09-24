@@ -4,6 +4,17 @@ Lang.Fail = {
     tooFar = 'YO %s — TOO FAR TO DROP THE BEAT ON %s! 🎧💥',
 }
 
+Lang.Vendor = {
+    targetLabel = '🔥 GET YA BACKPACK, LET’S GO! 🔥',
+    targetIcon = 'fas fa-shopping-bag',
+    price = 'ONLY $ %s ‼️',
+    inputTitle = '💸 PICK YOUR PAYMENT, FAM 💸',
+    inputDesc = 'Yo, how you payin??',
+    inputOption1 = '💵 CASH MONEY 💵',
+    inputOption2 = '🏦 BANK FLEX 🏦',
+    menuTitle = '🎒 BACKPACKS ON DEEEECK!!! 🎉',
+}
+
 Lang.Interact = {
     targetLabel = '🔥 OPEN THAT STASH 🔥',
     targetIcon = 'fas fa-box-open',

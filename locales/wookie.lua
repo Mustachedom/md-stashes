@@ -3,7 +3,16 @@ Lang = {}
 Lang.Fail = {
     tooFar = 'RrrrwwaaRRR — GrrrRRRrr %s — WrrrRRRrrr %s',
 }
-
+Lang.Vendor = {
+    targetLabel = 'RRRWWWGGHHH (backpack)',
+    targetIcon = 'fas fa-shopping-bag',
+    price = 'GRRR $ %s',
+    inputTitle = 'RRRAAAWRRHHH!',
+    inputDesc = 'RRWWWWWGGH?',
+    inputOption1 = 'Hhhrrnn (cash)',
+    inputOption2 = 'RRRRAAARGH (bank)',
+    menuTitle = 'RRWWWGGHH Backpacks!',
+}
 Lang.Interact = {
     targetLabel = 'RrrAAArrrrRRR',
     targetIcon = 'fas fa-box-open',

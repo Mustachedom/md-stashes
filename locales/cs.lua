@@ -55,4 +55,15 @@ Lang.Ui = {
         submit = 'Odeslat'
     }
 }
+
+Lang.Vendor = {
+    targetLabel = 'Koupit batoh',
+    targetIcon = 'fas fa-shopping-bag',
+    price = '$ %s',
+    inputTitle = 'Koupit batoh',
+    inputDesc = 'Typ platby',
+    inputOption1 = 'Hotovost',
+    inputOption2 = 'Banka',
+    menuTitle = 'Zakoupit batohy',
+}
 return Lang

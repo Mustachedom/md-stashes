@@ -3,6 +3,16 @@ Lang = {}
 Lang.Fail = {
     tooFar = '%s was too faw awayy to twiggew %s >_<',
 }
+Lang.Vendor = {
+    targetLabel = 'Buy Bwackpack~ ✨',
+    targetIcon = 'fas fa-shopping-bag',
+    price = '$ %s owo',
+    inputTitle = 'Buy Bwackpack >w<',
+    inputDesc = 'How u payin nya~?',
+    inputOption1 = 'Cashie~ 💖',
+    inputOption2 = 'Banky-wanky 🏦',
+    menuTitle = 'Pwurchase Bwackpackies UwU',
+}
 
 Lang.Interact = {
     targetLabel = 'Open Stashy-washy~ 💖',

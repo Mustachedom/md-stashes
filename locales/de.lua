@@ -55,4 +55,14 @@ Lang.Ui = {
         submit = 'Absenden'
     }
 }
+Lang.Vendor = {
+    targetLabel = 'Rucksack kaufen',
+    targetIcon = 'fas fa-shopping-bag',
+    price = '$ %s',
+    inputTitle = 'Rucksack kaufen',
+    inputDesc = 'Zahlungsart',
+    inputOption1 = 'Bargeld',
+    inputOption2 = 'Bank',
+    menuTitle = 'Rucksäcke kaufen',
+}
 return Lang

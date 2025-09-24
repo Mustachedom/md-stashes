@@ -4,6 +4,17 @@ Lang.Fail = {
     tooFar = '%s Estaba demasiado lejos para activar %s',
 }
 
+Lang.Vendor = {
+    targetLabel = 'Comprar mochila',
+    targetIcon = 'fas fa-shopping-bag',
+    price = '$ %s',
+    inputTitle = 'Comprar mochila',
+    inputDesc = 'Tipo de pago',
+    inputOption1 = 'Efectivo',
+    inputOption2 = 'Banco',
+    menuTitle = 'Comprar mochilas',
+}
+
 Lang.Interact = {
     targetLabel = 'Abrir Stash',
     targetIcon = 'fas fa-box-open',

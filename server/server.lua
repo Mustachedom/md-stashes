@@ -1,25 +1,6 @@
 
 local stashes = MySQL.query.await('SELECT * FROM mdstashes',{})
 
-local function generateUniqueId()
-    local allowedChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    local idLength = 16
-    local uniqueId = ''
-    math.randomseed(os.time())
-    for i = 1, idLength do
-        local randomIndex = math.random(1, #allowedChars)
-        uniqueId = uniqueId .. allowedChars:sub(randomIndex, randomIndex)
-    end
-    return uniqueId
-end
-
-local itemList = {
-    moneybag = {
-        label = 'Money Bag ', -- leave space so the uniqueId will show with a space
-        slots = 30,
-        maxweight = 100
-    },
-}
 
 -- Callbacks
 ps.registerCallback('md-stashes:server:verifyKey', function(source)
@@ -273,15 +254,58 @@ ps.registerCommand('editStash', {admin = true}, function(source, args, raw)
     TriggerClientEvent('md-stashes:client:editStash', src)
 end)
 
-RegisterCommand('testItem', function(source, args, raw)
-    local src = source
-    if not IsPlayerAceAllowed(source, 'command') then return false end
-    local uniqueId = generateUniqueId()
-    local itemData = {
-        stashName = itemList['moneybag'].label .. uniqueId,
-    }
-    ps.addItem(src, 'moneybag', 1, itemData)
+if not Config.useBackpacks then return end
+
+local vendorLocation = {
+    {loc = vector4(2557.458, 382.282, 108.622, 356.09), ped = 'ig_priest'},
+}
+
+local itemList = { -- itemname | slots: number | maxweight: number | allowStashInside: boolean or nil
+    small_backpack = {
+        price = 1000,
+        slots = 15,
+        maxweight = 25000,
+        allowStashInside = false,
+    },
+    medium_backpack = {
+        price = 2500,
+        slots = 30,
+        maxweight = 50000,
+        allowStashInside = false,
+    },
+    large_backpack = {
+        price = 5000,
+        slots = 55,
+        maxweight = 120000,
+        allowStashInside = false,
+    },
+}
+
+ps.registerCallback('md-stashes:server:getVendors', function(source)
+    return vendorLocation
 end)
+
+ps.registerCallback('md-stashes:server:getBackpacks', function(source, loc)
+    local src = source
+    if not ps.checkDistance(src, vendorLocation[loc].loc, 3) then
+        ps.warn(ps.lang('Fail.tooFar', ps.getPlayerName(src), 'md-stashes:server:getBackpacks'))
+        return {}
+    end
+    return itemList
+end)
+
+local function generateUniqueId()
+    local allowedChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    local idLength = 16
+    local uniqueId = ''
+    math.randomseed(os.time())
+    for i = 1, idLength do
+        local randomIndex = math.random(1, #allowedChars)
+        uniqueId = uniqueId .. allowedChars:sub(randomIndex, randomIndex)
+    end
+    return uniqueId
+end
+
 
 for k, v in pairs(itemList) do
     ps.createUseable(k, function(source, item)
@@ -302,3 +326,49 @@ for k, v in pairs(itemList) do
         })
     end)
 end
+
+local function refuse()
+    local itemToRefuse = {}
+    for k, v in pairs(itemList) do
+        if not v.allowStashInside then
+            itemToRefuse[k] = true
+        end
+    end
+    return itemToRefuse
+end
+
+local function filterInv()
+    local refuseString = {}
+    for k, v in pairs(itemList) do
+        if not v.allowStashInside then
+            table.insert(refuseString, '^' .. k .. '[%w]+')
+        end
+    end
+    return refuseString
+end
+
+if GetResourceState('ox_inventory') == 'started' then
+    local hookId = exports.ox_inventory:registerHook('swapItems', function(payload)
+        return false
+    end, {
+        print = true,
+        itemFilter = refuse(),
+        inventoryFilter = filterInv()
+    })
+end
+
+
+RegisterNetEvent('md-stashes:server:buyBackpack', function(loc, itemName, type)
+    local src = source
+    if not itemList[itemName] then return end
+    if not ps.checkDistance(src, vendorLocation[loc].loc, 3) then
+        ps.warn(ps.lang('Fail.tooFar', ps.getPlayerName(src), 'md-stashes:server:buyBackpack'))
+        return
+    end
+    local price = itemList[itemName].price
+    if ps.removeMoney(src, type, price) then
+        local uniqueId = generateUniqueId()
+        ps.addItem(src, itemName, 1, {stashName = itemName .. uniqueId})
+        return
+    end
+end)

@@ -55,4 +55,14 @@ Lang.Ui = {
         submit = 'Submit (do it right this time)'
     }
 }
+Lang.Vendor = {
+    targetLabel = 'Buy your dumb backpack',
+    targetIcon = 'fas fa-shopping-bag',
+    price = 'It’ll cost ya $ %s, loser',
+    inputTitle = 'Backpack ripoff',
+    inputDesc = 'Pick your pathetic payment',
+    inputOption1 = 'Cash, if you’re broke',
+    inputOption2 = 'Bank, if you even have one',
+    menuTitle = 'Overpriced backpacks',
+}
 return Lang

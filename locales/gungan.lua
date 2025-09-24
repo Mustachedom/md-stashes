@@ -55,4 +55,16 @@ Lang.Ui = {
         submit = 'Do-da thingy!'
     }
 }
+
+Lang.Vendor = {
+    targetLabel = 'Meesa buyin’ da backpack!',
+    targetIcon = 'fas fa-shopping-bag',
+    price = '$ %s',
+    inputTitle = 'Meesa get backpack!',
+    inputDesc = 'How yousa payin’?',
+    inputOption1 = 'Da Cash',
+    inputOption2 = 'Da Bank',
+    menuTitle = 'Backpacks-a for sale, okeeday!',
+}
+
 return Lang

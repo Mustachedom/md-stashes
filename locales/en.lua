@@ -55,4 +55,15 @@ Lang.Ui = {
         submit = 'Submit'
     }
 }
+
+Lang.Vendor = {
+    targetLabel = 'Buy Backpack',
+    targetIcon = 'fas fa-shopping-bag',
+    price = '$ %s',
+    inputTitle = 'Buy Backpack',
+    inputDesc = 'Payment Type',
+    inputOption1 = 'Cash',
+    inputOption2 = 'Bank',
+    menuTitle = 'Purchase Backpacks',
+}
 return Lang

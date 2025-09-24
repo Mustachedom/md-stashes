@@ -4,6 +4,17 @@ Lang.Fail = {
     tooFar = '%s Était trop loin pour déclencher %s',
 }
 
+Lang.Vendor = {
+    targetLabel = 'Acheter un sac à dos',
+    targetIcon = 'fas fa-shopping-bag',
+    price = '$ %s',
+    inputTitle = 'Acheter un sac à dos',
+    inputDesc = 'Mode de paiement',
+    inputOption1 = 'Espèces',
+    inputOption2 = 'Banque',
+    menuTitle = 'Acheter des sacs à dos',
+}
+
 Lang.Interact = {
     targetLabel = 'Ouvrir le Stash',
     targetIcon = 'fas fa-box-open',

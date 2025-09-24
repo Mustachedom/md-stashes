@@ -3,7 +3,16 @@ Lang = {}
 Lang.Fail = {
     tooFar = 'Arrr, %s be too far to trigger %s, ye scallywag!',
 }
-
+Lang.Vendor = {
+    targetLabel = 'Plunder a backpack, arr!',
+    targetIcon = 'fas fa-shopping-bag',
+    price = '$ %s doubloons',
+    inputTitle = 'Grab ye pack',
+    inputDesc = 'What treasure ye be spendin’?',
+    inputOption1 = 'Gold coins',
+    inputOption2 = 'Yer bank chest',
+    menuTitle = 'Backpacks fer sale, matey!',
+}
 Lang.Interact = {
     targetLabel = 'Open the Stash, matey!',
     targetIcon = 'fas fa-box-open',

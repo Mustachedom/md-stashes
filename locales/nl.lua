@@ -55,4 +55,15 @@ Lang.Ui = {
         submit = 'Verzenden'
     }
 }
+Lang.Vendor = {
+    targetLabel = 'Koop rugzak',
+    targetIcon = 'fas fa-shopping-bag',
+    price = '$ %s',
+    inputTitle = 'Koop rugzak',
+    inputDesc = 'Betaalmethode',
+    inputOption1 = 'Contant',
+    inputOption2 = 'Bank',
+    menuTitle = 'Rugzakken kopen',
+}
+
 return Lang

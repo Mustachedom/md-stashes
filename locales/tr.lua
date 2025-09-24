@@ -3,6 +3,16 @@ Lang = {}
 Lang.Fail = {
     tooFar = '%s, %s tetiklemek için çok uzaktaydı',
 }
+Lang.Vendor = {
+    targetLabel = 'Sırt çantası satın al',
+    targetIcon = 'fas fa-shopping-bag',
+    price = '$ %s',
+    inputTitle = 'Sırt çantası satın al',
+    inputDesc = 'Ödeme türü',
+    inputOption1 = 'Nakit',
+    inputOption2 = 'Banka',
+    menuTitle = 'Sırt çantaları satın al',
+}
 
 Lang.Interact = {
     targetLabel = 'Stash Aç',
