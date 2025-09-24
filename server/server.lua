@@ -36,6 +36,7 @@ ps.registerCallback('md-stashes:server:gotoLoc', function(source, data)
     SetEntityCoords(GetPlayerPed(src), location.x, location.y, location.z, false, false, false, false)
     return true
 end)
+
 -- Events
 RegisterNetEvent('md-stashes:server:createStash', function(data)
     local src = source
@@ -63,7 +64,9 @@ RegisterNetEvent('md-stashes:server:saveEdit', function(data)
     stashes = MySQL.query.await('SELECT * FROM mdstashes',{})
     TriggerClientEvent('md-stashes:client:newstash', -1)
 end)
+
 ps.versionCheck('md-stashes', 'https://raw.githubusercontent.com/Mustachedom/md-stashes/refs/heads/ps_lib/changelog.txt','https://github.com/Mustachedom/md-stashes/tree/ps_lib')
+
 RegisterNetEvent('md-stashes:server:changeLocation', function(data)
     local src = source
     if not IsPlayerAceAllowed(source, 'command') then return false end
@@ -157,16 +160,19 @@ RegisterNetEvent('md-stashes:server:openStash', function(id)
     local src = source
     local stashData = stashes[id]
     if not stashData then return end
+
     local loc = json.decode(stashData.loc)
     local location = vector3(loc.x, loc.y, loc.z)
     if not ps.checkDistance(src, location, 3) then
         ps.warn(ps.lang('Fail.tooFar', ps.getPlayerName(src), 'md-stashes:server:openStash'))
         return
     end
+
     if not checkAllowance(src, stashData.data) then
         ps.notify(src, ps.lang('Notify.noAccess'), 'error')
         return
     end
+
     local data = json.decode(stashData.data)
     ps.openStash(src, stashData.name, {
         label = stashData.name,
