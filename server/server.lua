@@ -1,6 +1,26 @@
 
 local stashes = MySQL.query.await('SELECT * FROM mdstashes',{})
 
+local function generateUniqueId()
+    local allowedChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    local idLength = 16
+    local uniqueId = ''
+    math.randomseed(os.time())
+    for i = 1, idLength do
+        local randomIndex = math.random(1, #allowedChars)
+        uniqueId = uniqueId .. allowedChars:sub(randomIndex, randomIndex)
+    end
+    return uniqueId
+end
+
+local itemList = {
+    moneybag = {
+        label = 'Money Bag ', -- leave space so the uniqueId will show with a space
+        slots = 30,
+        maxweight = 100
+    },
+}
+
 -- Callbacks
 ps.registerCallback('md-stashes:server:verifyKey', function(source)
     if not IsPlayerAceAllowed(source, 'command') then return false end
@@ -252,3 +272,33 @@ ps.registerCommand('editStash', {admin = true}, function(source, args, raw)
     if not IsPlayerAceAllowed(source, 'command') then return false end
     TriggerClientEvent('md-stashes:client:editStash', src)
 end)
+
+RegisterCommand('testItem', function(source, args, raw)
+    local src = source
+    if not IsPlayerAceAllowed(source, 'command') then return false end
+    local uniqueId = generateUniqueId()
+    local itemData = {
+        stashName = itemList['moneybag'].label .. uniqueId,
+    }
+    ps.addItem(src, 'moneybag', 1, itemData)
+end)
+
+for k, v in pairs(itemList) do
+    ps.createUseable(k, function(source, item)
+        local src = source
+        if not item then return end
+        if GetResourceState('ox_inventory') == 'started' then
+            ps.openStash(src, item.metadata.stashName, {
+                label = item.metadata.stashName,
+                slots = v.slots,
+                maxweight = v.maxweight,
+            })
+            return
+        end
+        ps.openStash(src, item.info.stashName, {
+            label = item.info.stashName,
+            slots = v.slots,
+            maxweight = v.maxweight,
+        })
+    end)
+end
