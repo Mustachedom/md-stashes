@@ -28,6 +28,32 @@ Lang.Notify = {
     noAccess = 'You don’t has access to dis stashy~ 🥺'
 }
 
+Lang.giveBag = {
+    help = 'RRWWWGGHH give bag',
+    invalidPlayer = 'RRRAWRRR invalid ID',
+    invalidItem = 'GRRHHHH bad bag',
+    noAccess = 'RRWWWGGHHH no permission',
+    given = 'HHRRRNN gave %s a %s',
+    received = 'RRRAWWRR got %s from %s',
+    pid = 'WWWRRGHH ID',
+    pidHelp = 'Target RWWWRGHH ID',
+    item = 'RRRGHH name',
+    itemHelp = 'Backpack RRRGHH name',
+}
+
+Lang.giveBag = {
+    help = 'Gib bwackpack to pwayer~ ✨',
+    invalidPlayer = 'Nu nu, invawid pwayew ID >w<',
+    invalidItem = 'Nyo backpack item, sowwy!!',
+    noAccess = 'U can’t use dis command nya~',
+    given = 'U gib %s a cuwute %s OwO',
+    received = 'U weceived a %s fwom %s UwU',
+    pid = 'Pwayer ID',
+    pidHelp = 'Tawget Pwayer ID',
+    item = 'Itemy name',
+    itemHelp = 'Bwackpack itemy name nya~',
+}
+
 Lang.Ui = {
     edit = {
         header = 'Edit Stashy-washy~ 💕',

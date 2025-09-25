@@ -27,6 +27,19 @@ Lang.Notify = {
     noAccess = 'Ouyay Oday Otnay Avehay Accessyay Otay Isthay Ashstay'
 }
 
+Lang.giveBag = {
+    help = 'Ivegay aybay ackpackbay otay ayay ayerplay',
+    invalidPlayer = 'Invalidway Ayerplay ID',
+    invalidItem = 'Invalidway Ackpackbay Itemway',
+    noAccess = 'Ouyay onay ermissionpay',
+    given = 'Ouyay avegay %s ayay %s',
+    received = 'Ouyay eceivedray ayay %s omfray %s',
+    pid = 'Ayerplay ID',
+    pidHelp = 'Argettay Ayerplay ID',
+    item = 'Itemway Amenay',
+    itemHelp = 'Ackpackbay Itemway Amenay'
+}
+
 Lang.Ui = {
     edit = {
         header = 'Edityay Ashstay',

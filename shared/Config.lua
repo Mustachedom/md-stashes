@@ -16,5 +16,3 @@ Config.Objects = {
     {value = 'prop_lev_crate_01',    label = 'Large Wooden Crate'},
     {value = 'prop_container_03mb', label = 'Shipping Container'},
 }
-
-Config.useBackpacks = true -- Enable this to use backpacks as stashes | Requires md-backpacks

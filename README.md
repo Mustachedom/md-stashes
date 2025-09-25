@@ -36,6 +36,9 @@
   
 - Fill out your config
 
+### STEP 3 (optional)
+- Install backpack items in your framework/inventory
+- backpacks will need to be purchased through the ped OR use admin command `giveBag playerID itemName`
 
 # How It Works
 

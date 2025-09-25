@@ -174,4 +174,3 @@ RegisterNetEvent('md-stashes:client:editStash', function()
         data = stashData
     })
 end)
-

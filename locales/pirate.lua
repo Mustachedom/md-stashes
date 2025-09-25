@@ -27,6 +27,19 @@ Lang.Notify = {
     noAccess = 'No access for the likes o’ you, ye scurvy dog!'
 }
 
+Lang.giveBag = {
+    help = 'Give a matey a backpack, arrr!',
+    invalidPlayer = 'That be no proper sailor ID!',
+    invalidItem = 'That backpack item be cursed!',
+    noAccess = 'Ye lack the captain’s permission!',
+    given = 'Ye gave %s a fine %s!',
+    received = 'Ye be handed a %s from %s!',
+    pid = 'Matey ID',
+    pidHelp = 'Target sailor ID',
+    item = 'Item name',
+    itemHelp = 'Backpack item name',
+}
+
 Lang.Ui = {
     edit = {
         header = 'Edit the Stash, ye salty dog!',

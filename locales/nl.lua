@@ -18,6 +18,20 @@ Lang.Notify = {
     noAccess = 'Je hebt geen toegang tot deze stash'
 }
 
+Lang.giveBag = {
+    help = 'Geef een rugzak aan een speler',
+    invalidPlayer = 'Ongeldig speler-ID',
+    invalidItem = 'Ongeldig rugzak-item',
+    noAccess = 'Je hebt geen toestemming om dit commando te gebruiken',
+    given = 'Je hebt %s een %s gegeven',
+    received = 'Je hebt een %s van %s ontvangen',
+    pid = 'Speler-ID',
+    pidHelp = 'Doel speler-ID',
+    item = 'Itemnaam',
+    itemHelp = 'Naam van rugzak-item'
+}
+
+
 Lang.Ui = {
     edit = {
         header = 'Stash Bewerken',

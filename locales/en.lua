@@ -66,4 +66,17 @@ Lang.Vendor = {
     inputOption2 = 'Bank',
     menuTitle = 'Purchase Backpacks',
 }
+
+Lang.giveBag = {
+    help = 'Give a backpack to a player',
+    invalidPlayer = 'Invalid Player ID',
+    invalidItem = 'Invalid Backpack Item',
+    noAccess = 'You do not have permission to use this command',
+    given = 'You have given %s a %s',
+    received = 'You have received a %s from %s',
+    pid = 'Player ID',
+    pidHelp = 'Target Player ID',
+    item = 'Item Name',
+    itemHelp = 'Backpack Item Name'
+}
 return Lang

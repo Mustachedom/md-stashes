@@ -18,6 +18,19 @@ Lang.Notify = {
     noAccess = 'Access denied. Shocking — you don’t belong here.'
 }
 
+Lang.giveBag = {
+    help = 'Hand over a stupid backpack to some idiot',
+    invalidPlayer = 'Wow, nice job, invalid player ID',
+    invalidItem = 'That’s not even a backpack, genius',
+    noAccess = 'You don’t have permission, deal with it',
+    given = 'Congrats, you wasted a %s on %s',
+    received = 'Lucky you, got a crappy %s from %s',
+    pid = 'Player ID (duh)',
+    pidHelp = 'Target Player ID, figure it out',
+    item = 'Item Name (obviously)',
+    itemHelp = 'Name of the dumb backpack item'
+}
+
 Lang.Ui = {
     edit = {
         header = 'Fix your garbage stash',

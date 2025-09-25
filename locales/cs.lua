@@ -13,6 +13,20 @@ Lang.Interact = {
     drawTextobj = '[E] Umístit  \n  [DEL] Zrušit  \n  [<-] Doleva  \n  [->] Doprava',
     drawTextCoords = 'Souřadnice paprsku:  \n X: %s,  \n Y: %s,  \n Z: %s  \n[E] kopírovat  \n[DEL] zrušit',
 }
+
+Lang.giveBag = {
+    help = 'Dejte batoh hráči',
+    invalidPlayer = 'Neplatné ID hráče',
+    invalidItem = 'Neplatná položka batohu',
+    noAccess = 'Nemáte oprávnění použít tento příkaz',
+    given = 'Dal jste %s batoh %s',
+    received = 'Obdrželi jste batoh %s od %s',
+    pid = 'ID hráče',
+    pidHelp = 'Cílové ID hráče',
+    item = 'Název položky',
+    itemHelp = 'Název položky batohu'
+}
+
 Lang.Notify = {
     wrongPass = 'Zadal jsi špatné heslo',
     noAccess = 'Nemáš přístup k této skrýši'

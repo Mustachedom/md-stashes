@@ -17,7 +17,18 @@ Lang.Notify = {
     wrongPass = 'Ooh nooo — wrongy-wrong passy-wordy!',
     noAccess = 'Nuh-uh! No bango in dis stashy for yousa!'
 }
-
+Lang.giveBag = {
+    help = 'Meesa give backpack to playa!',
+    invalidPlayer = 'Dat player ID no good!',
+    invalidItem = 'Backpack item issa broken!',
+    noAccess = 'No permission, okeeday!',
+    given = 'Yousa givin %s a %s!',
+    received = 'Yousa receivin %s from %s!',
+    pid = 'Playa ID',
+    pidHelp = 'Target playa ID',
+    item = 'Item name',
+    itemHelp = 'Backpack item name',
+}
 Lang.Ui = {
     edit = {
         header = 'Fixity-up da Stashy',

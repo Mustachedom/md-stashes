@@ -29,6 +29,19 @@ Lang.Notify = {
     noAccess = 'ACCESS DENIED — NOT ON THE GUEST LIST 🚫🎧'
 }
 
+Lang.giveBag = {
+    help = '🎒 YO, HAND THAT BACKPACK TO A PLAYER!!',
+    invalidPlayer = '🚫 WRONG PLAYER ID, FAM!',
+    invalidItem = '❌ THAT AIN’T A BACKPACK!',
+    noAccess = '😤 YOU GOT NO PERMISSION, BRO!',
+    given = '🔥 YOU GAVE %s A DOPE %s!',
+    received = '🎁 YOU GOT A %s FROM %s, TURN UP!',
+    pid = '🎯 PLAYER ID',
+    pidHelp = 'WHO YOU GONNA HOOK UP?!',
+    item = 'ITEM NAME',
+    itemHelp = 'NAME OF THAT FRESH BACKPACK',
+}
+
 Lang.Ui = {
     edit = {
         header = 'REMIX THIS STASH 🎛️',

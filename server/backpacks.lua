@@ -118,3 +118,35 @@ RegisterNetEvent('md-stashes:server:buyBackpack', function(loc, itemName, type)
         return
     end
 end)
+
+ps.registerCommand('giveBag', {
+    admin = true,
+    help = ps.lang('giveBag.help'),
+    description = {
+        {
+            name = ps.lang('giveBag.pid'),
+            help = ps.lang('giveBag.pidHelp'),
+        },
+        {
+            name = ps.lang('giveBag.item'),
+            help = ps.lang('giveBag.itemHelp'),
+        }
+    }
+}, function(source, args, rawCommand)
+    local src = source
+    if not IsPlayerAceAllowed(src, 'command') then return false end
+    local targetId = tonumber(args[1])
+    local itemName = args[2]
+    if not ps.getPlayer(targetId) then
+        ps.notify(src, ps.lang('giveBag.invalidPlayer'), 'error')
+        return
+    end
+    if not itemList[args[2]] then
+        ps.notify(src, ps.lang('giveBag.invalidItem'), 'error')
+        return
+    end
+    local uniqueId = generateUniqueId()
+    ps.addItem(targetId, itemName, 1, {stashName = itemName .. uniqueId})
+    ps.notify(src, ps.lang('giveBag.given',  ps.getPlayerName(targetId), itemName), 'success')
+    ps.notify(targetId, ps.lang('giveBag.received', itemName, ps.getPlayerName(src)), 'success')
+end)

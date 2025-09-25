@@ -28,6 +28,19 @@ Lang.Notify = {
     noAccess = 'Nahkip fen dii — No Access'
 }
 
+Lang.giveBag = {
+    help = 'Don vahzen to dovah',
+    invalidPlayer = 'Niid Krosis ID',
+    invalidItem = 'Niid Krosis Lahney',
+    noAccess = 'Niid Zahkrii fah do',
+    given = 'Hi mah %s a %s',
+    received = 'Hi fen kos %s fah %s',
+    pid = 'Krosis ID',
+    pidHelp = 'Krosis fah hin',
+    item = 'Lahney Naam',
+    itemHelp = 'Naam do Lahney'
+}
+
 Lang.Ui = {
     edit = {
         header = 'Fen dreh Nahkip — Edit Stash',

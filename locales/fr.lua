@@ -29,6 +29,19 @@ Lang.Notify = {
     noAccess = 'Vous n’avez pas accès à ce Stash'
 }
 
+Lang.giveBag = {
+    help = 'Donner un sac à dos à un joueur',
+    invalidPlayer = 'ID de joueur invalide',
+    invalidItem = 'Article de sac à dos invalide',
+    noAccess = 'Vous n’avez pas la permission d’utiliser cette commande',
+    given = 'Vous avez donné un %s à %s',
+    received = 'Vous avez reçu un %s de %s',
+    pid = 'ID du joueur',
+    pidHelp = 'ID du joueur ciblé',
+    item = 'Nom de l’objet',
+    itemHelp = 'Nom de l’objet du sac à dos'
+}
+
 Lang.Ui = {
     edit = {
         header = 'Modifier le Stash',
