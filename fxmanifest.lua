@@ -5,7 +5,7 @@ game 'gta5'
 
 name 'mustache-stashes'
 author 'mustache_dom'
-version '3.0.1'
+version '3.1.1'
 description 'Stashes by mustache dom'
 
 ui_page 'web/build/index.html'
