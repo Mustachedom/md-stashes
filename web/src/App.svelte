@@ -1,18 +1,14 @@
 <script lang="ts">
   import VisibilityProvider from './providers/VisibilityProvider.svelte';
-  import HelloWorld from './components/HelloWorld.svelte';
-  import { debugData } from './utils/debugData';
+  import CreateStash from './components/CreateStash.svelte';
+  import { initDevEnvironment } from './utils/mockData';
+  import './styles/global.css';
 
-  debugData([
-    {
-      action: 'setVisible',
-      data: true,
-    },
-  ]);
+  initDevEnvironment();
 </script>
 
 <main>
   <VisibilityProvider>
-    <HelloWorld />
+    <CreateStash />
   </VisibilityProvider>
 </main>

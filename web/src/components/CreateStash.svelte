@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fetchNui } from '../utils/fetchNui';
   import { visibility, language, editMenu, editable, defaults } from '../store/stores';
-   import { useNuiEvent } from '../utils/useNuiEvent';
+  import { Plus, ChevronUp, ChevronDown } from 'lucide-svelte';
 
   interface StashField {
     handle: string;
@@ -44,6 +44,20 @@
   function removeFromArray(item: StashField, index: number) {
     if (item.arrayValues) {
       item.arrayValues.splice(index, 1);
+      stashData = [...stashData];
+    }
+  }
+
+  function incrementValue(item: StashField) {
+    const currentValue = parseInt(item.value) || 0;
+    item.value = (currentValue + 1).toString();
+    stashData = [...stashData];
+  }
+
+  function decrementValue(item: StashField) {
+    const currentValue = parseInt(item.value) || 0;
+    if (currentValue > 0) {
+      item.value = (currentValue - 1).toString();
       stashData = [...stashData];
     }
   }
@@ -154,9 +168,9 @@
 </script>
 
 
-  <div class="container">
-    <div class="header">
-      <h1>{header}</h1>
+  <div class="menu-container">
+    <div class="menu-header">
+      <h2 class="menu-title">{header}</h2>
     </div>
     <div class="form-content">
       {#each stashData as item (item.handle)}
@@ -174,7 +188,7 @@
                   bind:value={item.value} 
                   placeholder={item.default || `Add ${item.label.toLowerCase()}`}
                   on:keypress={(e) => handleKeyPress(e, item)}
-                  class="array-input"
+                  class="form-input array-input"
                 />
                 <button 
                   type="button" 
@@ -183,7 +197,7 @@
                   disabled={!item.value || item.value.trim() === ''}
                   title="Add item"
                 >
-                  <span>+</span>
+                  <Plus size={18} />
                 </button>
               </div>
 
@@ -198,19 +212,29 @@
                 </div>
               {/if}
             {:else if item.type === 'number'}
-              <input 
-                type="number" 
-                bind:value={item.value} 
-                placeholder={item.default}
-                class="number-input"
-                min="0"
-              />
+              <div class="number-input-container">
+                <input 
+                  type="number" 
+                  bind:value={item.value} 
+                  placeholder={item.default}
+                  class="form-input number-input"
+                  min="0"
+                />
+                <div class="number-controls">
+                  <button type="button" class="number-btn" on:click={() => incrementValue(item)}>
+                    <ChevronUp size={14} />
+                  </button>
+                  <button type="button" class="number-btn" on:click={() => decrementValue(item)}>
+                    <ChevronDown size={14} />
+                  </button>
+                </div>
+              </div>
             {:else}
               <input 
                 type="text" 
                 bind:value={item.value} 
                 placeholder={item.default || `Enter ${item.label.toLowerCase()}`}
-                class="text-input"
+                class="form-input"
               />
             {/if}
           </div>
@@ -218,62 +242,56 @@
       {/each}
     </div>
 
-    <div class="button-container">
-      <button type="button" class="reset-btn" on:click={resetForm} disabled={isSubmitting}>{$language.Ui.create.reset}</button>
-      <button type="button" class="submit-btn" on:click={handleSubmit} disabled={isSubmitting}>{$language.Ui.create.submit}</button>
+    <div class="button-group">
+      <button type="button" class="btn decline" on:click={resetForm} disabled={isSubmitting}>{$language.Ui.create.reset}</button>
+      <button type="button" class="btn confirm" on:click={handleSubmit} disabled={isSubmitting}>{$language.Ui.create.submit}</button>
     </div>
   </div>
 
 <style>
-  .container {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    position: absolute;
-    color: white;
-    width: 420px;
-    max-height: 90vh;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #121212;
-    border-radius: 16px;
-    padding: 0;
-    box-sizing: border-box;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
-
-    overflow: hidden;
-  }
-
-  .header {
-    background: #121212;
-    padding: 24px;
-    text-align: center;
-    position: relative;
-  }
-
-  .header h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 700;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  .menu-container {
+    max-width: 800px;
+    width: 400px;
   }
 
   .form-content {
-    padding: 24px;
-    max-height: calc(90vh - 200px);
+    max-height: 400px;
     overflow-y: auto;
+    padding: 0;
+  }
+
+  .form-content::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .form-content::-webkit-scrollbar-track {
+    background: #1a1a1a;
+  }
+
+  .form-content::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 3px;
+  }
+
+  .form-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
   }
 
   .field-container {
-    margin-bottom: 24px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #2a2a2a;
+  }
+
+  .field-container:last-child {
+    border-bottom: none;
   }
 
   .field-label {
-    display: flex;
-    align-items: center;
+    display: block;
     margin-bottom: 8px;
-    font-weight: 600;
     font-size: 14px;
-    color: #e2e8f0;
+    font-weight: 500;
+    color: #fff;
   }
 
   .array-input-container {
@@ -283,135 +301,134 @@
     margin-bottom: 12px;
   }
 
-  input {
-    padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.15);
-    color: white;
-    border-radius: 8px;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    outline: none;
-  }
-
-  input:focus {
-    border-color: #ffffff;
-    background: #494949;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
-  }
-
-  input::placeholder {
-    color: rgb(255, 254, 254);
-  }
-
   .array-input {
     flex: 1;
   }
 
-  .text-input,
-  .number-input {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
   .add-btn {
-    background: #494949;
-    color: white;
-    border: none;
-    border-radius: 8px;
+    background: #2a2a2a;
+    color: #ccc;
+    border: 1px solid #444;
+    border-radius: 4px;
     width: 44px;
     height: 44px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.15s ease;
   }
 
+  .add-btn:hover:not(:disabled) {
+    background: #333;
+    border-color: #555;
+    color: #fff;
+  }
+
+  .add-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
   .array-values {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
     margin-top: 8px;
   }
 
   .array-item {
-    background: linear-gradient(135deg, #2a2a3a, #3a3a4a);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 8px 14px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 4px 8px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    user-select: none;
-    font-size: 13px;
+    transition: all 0.15s ease;
+    font-size: 12px;
+    color: #ccc;
   }
+
+  .array-item:hover {
+    background: #333;
+    border-color: #555;
+    color: #fff;
+  }
+
   .array-text {
-    font-weight: 500;
+    font-weight: 400;
   }
 
   .delete-icon {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
     opacity: 0.7;
-    transition: opacity 0.2s;
   }
 
   .array-item:hover .delete-icon {
     opacity: 1;
   }
 
-  .button-container {
-    padding: 12px;
-    background: rgba(0, 0, 0, 0.2);
+  .number-input-container {
+    position: relative;
     display: flex;
-    gap: 12px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: center;
   }
 
-  .reset-btn {
-    flex: 1;
-    padding: 12px 24px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
+  .number-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    padding-right: 32px;
+    position: relative;
+    z-index: 1;
   }
 
-  .submit-btn {
-    flex: 2;
-    padding: 12px 24px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
+  .number-input::-webkit-outer-spin-button,
+  .number-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .number-controls {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    bottom: 1px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    border-left: 1px solid #444;
+    align-items: center;
+    justify-content: center;
+    background: inherit;
+    z-index: 2;
+  }
+
+  .number-btn {
+    background: transparent;
+    border: none;
+    border-radius: 3px;
+    width: 24px;
+    height: 20px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    color: #ccc;
+    transition: all 0.15s ease;
   }
 
-
-  .spinner {
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: 2px solid white;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+  .number-btn:hover {
+    background: #333;
+    color: #fff;
   }
 
-  .form-content::-webkit-scrollbar {
-    display: none;
+  .number-btn:active {
+    background: #1a1a1a;
   }
 </style>
