@@ -1,7 +1,6 @@
 <script lang="ts">
   import { fetchNui } from '../utils/fetchNui';
   import { visibility, language, editMenu, editable, defaults } from '../store/stores';
-   import { useNuiEvent } from '../utils/useNuiEvent';
 
   interface StashField {
     handle: string;
@@ -329,7 +328,6 @@
     justify-content: center;
   }
 
-
   .array-values {
     display: flex;
     flex-wrap: wrap;
@@ -399,16 +397,6 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-  }
-
-
-  .spinner {
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: 2px solid white;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
   }
 
   .form-content::-webkit-scrollbar {
