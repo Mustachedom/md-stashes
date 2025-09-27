@@ -85,14 +85,84 @@
     </div>
 
     <div class="button-group">
-      <button class="btn" on:click={deleteStash}>{$language.Ui.edit.del}</button>
-      <button class="btn" on:click={gotoLoc}>{$language.Ui.edit.go2}</button>
-      <button class="btn" on:click={changeLocation} disabled={selectedIndex < 0}>
+      <button class="btn decline" on:click={deleteStash}>{$language.Ui.edit.del}</button>
+      <button class="btn confirm" on:click={gotoLoc}>{$language.Ui.edit.go2}</button>
+      <button class="btn confirm" on:click={changeLocation} disabled={selectedIndex < 0}>
         {$language.Ui.edit.changeLoc}
       </button>
-      <button class="btn primary" on:click={handleSubmit} disabled={selectedIndex < 0}>
+      <button class="btn confirm" on:click={handleSubmit} disabled={selectedIndex < 0}>
         {$language.Ui.edit.edit}
       </button>
     </div>
   </div>
 {/if}
+
+<style>
+  .item-list {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .item-list::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .item-list::-webkit-scrollbar-track {
+    background: #1a1a1a;
+  }
+
+  .item-list::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 3px;
+  }
+
+  .item-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .list-item {
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    border-bottom: 1px solid #2a2a2a;
+  }
+
+  .list-item:hover {
+    background: #222;
+  }
+
+  .list-item.selected {
+    background: #2a2a2a;
+    border-left: 3px solid #fff;
+  }
+
+  .list-item:last-child {
+    border-bottom: none;
+  }
+
+  .item-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .item-name {
+    font-weight: 500;
+    color: #fff;
+  }
+
+  .item-id, .item-type {
+    font-size: 12px;
+    color: #ffffff;
+    background: #2a2a2a;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .item-location {
+    font-size: 13px;
+    color: #ffffff;
+  }
+</style>

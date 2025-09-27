@@ -38,23 +38,23 @@
 
 <div class="dev-controls">
   <h4>Dev Controls</h4>
-  <button on:click={showCreateStash} style="background: #0c336d;">Create Stash</button>
-  <button on:click={showSelectMenu} style="background: #0c336d;">Select Menu</button>
-  <button on:click={showEditMenu} style="background: #0c336d">Edit Stash</button>
-  <button on:click={hideAll} style="background: #0c336d">Hide All</button>
+  <button class="btn confirm" on:click={showCreateStash}>Create Stash</button>
+  <button class="btn confirm" on:click={showSelectMenu}>Select Stash Type</button>
+  <button class="btn confirm" on:click={showEditMenu}>Edit Stash</button>
+  <button class="btn decline" on:click={hideAll}>Hide All</button>
 </div>
 
 <style>
   .dev-controls {
     position: fixed;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
     top: 10px;
     right: 10px;
-    background: #121212;
+    background: #1a1a1a;
     border-radius: 16px;
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
   }
 
   .dev-controls h4 {
@@ -62,17 +62,9 @@
     text-align: center;
   }
 
-  .dev-controls button {
+  .dev-controls .btn {
     display: block;
     width: 100%;
-    color: white;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
     margin-bottom: 5px;
-    padding: 12px 24px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
   }
 </style>

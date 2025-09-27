@@ -54,6 +54,7 @@
   font-size: 14px;
   font-family: inherit;
   transition: all 0.15s ease;
+  box-sizing: border-box;
 }
 
 .form-input:focus, .form-select:focus {
@@ -66,7 +67,6 @@
   color: #666;
 }
 
-/* Select wrapper for custom dropdown styling */
 .select-wrapper {
   position: relative;
 }
@@ -80,75 +80,6 @@
   color: #666;
   pointer-events: none;
   font-size: 12px;
-}
-
-/* List styles (for EditStash) */
-.item-list {
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-.item-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.item-list::-webkit-scrollbar-track {
-  background: #1a1a1a;
-}
-
-.item-list::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 3px;
-}
-
-.item-list::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-.list-item {
-  padding: 16px 20px;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
-  border-bottom: 1px solid #2a2a2a;
-}
-
-.list-item:hover {
-  background: #222;
-}
-
-.list-item.selected {
-  background: #2a2a2a;
-  border-left: 3px solid #fff;
-}
-
-.list-item:last-child {
-  border-bottom: none;
-}
-
-.item-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-
-.item-name {
-  font-weight: 500;
-  color: #fff;
-}
-
-.item-id, .item-type {
-  font-size: 12px;
-  color: #ffffff;
-  background: #2a2a2a;
-  padding: 2px 8px;
-  border-radius: 4px;
-}
-
-.item-location {
-  font-size: 13px;
-  color: #ffffff;
 }
 
 /* Button styles */
@@ -189,14 +120,28 @@
   color: #fff;
 }
 
-.btn.cancel {
-  background: #1a1a1a;
+.btn.decline {
+  background: #2a2a2a;
   border-color: #444;
+  color: #ccc;
 }
 
-.btn.cancel:hover:not(:disabled) {
-  background: #2a2a2a;
+.btn.decline:hover:not(:disabled) {
+  background: #dc2626;
+  border-color: #b91c1c;
+  color: #fff;
+}
+
+.btn.confirm {
+  background: #333;
   border-color: #555;
+  color: #fff;
+}
+
+.btn.confirm:hover:not(:disabled) {
+  background: rgb(22, 163, 4);
+  border-color: rgb(19, 142, 4);
+  color: #fff;
 }
 
 .btn:disabled {
@@ -204,7 +149,6 @@
   cursor: not-allowed;
 }
 
-/* Full width button */
 .btn-full {
   width: 100%;
 }
