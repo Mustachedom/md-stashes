@@ -6,6 +6,7 @@
   import SelectMenu from '../components/SelectMenu.svelte';
   import EditStash from '../components/EditStash.svelte';
   import { isEnvBrowser } from '../utils/misc';
+  import CreateStash from '../components/CreateStash.svelte';
   let isVisible: boolean;
 
   visibility.subscribe((visible) => {
@@ -16,8 +17,8 @@
     visibility.set(visible);
   });
 
-  useNuiEvent<any>('firstMenu', (data) => {
-    firstMenu.set(data);
+  useNuiEvent<any>('firstMenu', () => {
+    firstMenu.set(true);
   });
 
   useNuiEvent<any>('editMenu', (data) => {
@@ -65,8 +66,8 @@
 </script>
 
 <main>
-  {#if isVisible && !$firstMenu && !$editMenu}
-    <slot />
+  {#if $visibility}
+    <CreateStash />
   {/if}
   {#if $firstMenu}
     <SelectMenu />

@@ -1,3 +1,5 @@
+if not Config.UseBackpacks then return end
+
 local function initVendor()
     local vendors = ps.callback('md-stashes:server:getVendors')
     for k, v in pairs(vendors) do

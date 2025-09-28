@@ -1,4 +1,4 @@
-
+if not Config.UseBackpacks then return end
 local vendorLocation = {
     {loc = vector4(2557.458, 382.282, 108.622, 356.09), ped = 'ig_priest'},
 }
@@ -98,10 +98,6 @@ if GetResourceState('ox_inventory') == 'started' then
         itemFilter = refuse(),
         inventoryFilter = filterInv()
     })
-end
-
-if GetResourceState('qb-inventory') == 'started' then
-    exports['qb-inventory']:BlockItemsFromInventories(refuse(), filterInv())
 end
 
 RegisterNetEvent('md-stashes:server:buyBackpack', function(loc, itemName, type)

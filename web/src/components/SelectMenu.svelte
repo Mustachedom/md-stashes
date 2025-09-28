@@ -8,16 +8,14 @@
   let selectedObject = '';
   
   function handleSubmit() {
-    let payload;
+    let data;
     if (selectedOption === 'coords') {
-      payload = { type: 'coords', object: false };
+      data = { type: 'coords', object: false };
     } else if (selectedOption === 'object') {
-      payload = { type: 'object', object: selectedObject };
+      data = { type: 'object', object: selectedObject };
     }
-    console.log(JSON.stringify(payload));
-    if (payload) {
-      fetchNui('submitSelection', payload);
-      
+    if (data) {
+      fetchNui('submitSelection', data);
       firstMenu.set(false);
       fetchNui('hideUI');
     }

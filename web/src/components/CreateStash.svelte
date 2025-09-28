@@ -255,7 +255,7 @@
   }
 
   .form-content {
-    max-height: 400px;
+    max-height: 700px;
     overflow-y: auto;
     padding: 0;
   }

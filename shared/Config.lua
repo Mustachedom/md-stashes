@@ -16,3 +16,5 @@ Config.Objects = {
     {value = 'prop_lev_crate_01',    label = 'Large Wooden Crate'},
     {value = 'prop_container_03mb', label = 'Shipping Container'},
 }
+
+Config.UseBackpacks = true -- Set to false if you do not want to use backpacks

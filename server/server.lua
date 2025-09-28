@@ -1,7 +1,6 @@
 
 local stashes = MySQL.query.await('SELECT * FROM mdstashes',{})
 
-
 -- Callbacks
 ps.registerCallback('md-stashes:server:verifyKey', function(source)
     if not IsPlayerAceAllowed(source, 'command') then return false end

@@ -1,6 +1,7 @@
-#  md-stashes    - An easy way to place stashes throughout your server
+#  md-stashes 
+  ### An easy way to place stashes throughout your server
 
-
+## Discord
 <div align="center">
   <a href="https://discord.gg/sAMzrB4DDx">
     <img src="https://i.imgur.com/t65G9Z0.png" width="200" alt="Mustache Scripts Logo">
@@ -19,6 +20,8 @@
 > ⚠️ Ensure all dependencies are installed, up to date, and ensure **BEFORE** this script, before proceeding.
 
 <h1>Credits</h1>
+
+- [MadCap](https://discord.gg/dTNWpmPGyc) for redesigning the Ui! it looks beautiful so please check out his [store](https://madcap-scripts.tebex.io/) and his [FREE STUFF](https://github.com/ThatMadCap)
 
 - shout out to my beta testers who had to deal with me a lot!
 
