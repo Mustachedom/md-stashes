@@ -1,0 +1,8 @@
+Newest Build: 3.0.0
+- Ui adjusment
+   - different colors on select menu
+   - centered edit stash Page
+
+- added Config options for objects
+  - added square wooden box
+  - added shipping container
