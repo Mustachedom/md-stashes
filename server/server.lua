@@ -65,7 +65,7 @@ RegisterNetEvent('md-stashes:server:saveEdit', function(data)
     TriggerClientEvent('md-stashes:client:newstash', -1)
 end)
 
-ps.versionCheck('md-stashes', 'https://raw.githubusercontent.com/Mustachedom/md-stashes/refs/heads/ps_lib/changelog.txt','https://github.com/Mustachedom/md-stashes/tree/ps_lib')
+ps.versionCheck('md-stashes', 'https://raw.githubusercontent.com/Mustachedom/md-stashes/refs/heads/main/changelog.txt','https://github.com/Mustachedom/md-stashes/')
 
 RegisterNetEvent('md-stashes:server:changeLocation', function(data)
     local src = source
