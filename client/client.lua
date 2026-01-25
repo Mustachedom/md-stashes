@@ -2,9 +2,12 @@
 local props = {}
 
 function requestModel(model)
+    local timeout = 15000
+
     if not HasModelLoaded(model) then
         RequestModel(model)
-        while not HasModelLoaded(model) do
+        local time = GetGameTimer()
+        while not HasModelLoaded(model) and (GetGameTimer() - time) < timeout do
             Wait(10)
         end
     end
@@ -29,6 +32,7 @@ local function getGangRank()
         return Player.gang.grade.level
     end
 end
+
 local function handleRCOREGangs(gangName, gangRank)
     local gangs = exports['rcore_gang']:GetPlayerGang()
     if not gangs then return false end
