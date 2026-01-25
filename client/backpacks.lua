@@ -1,30 +1,31 @@
 if not Config.UseBackpacks then return end
 
 local function initVendor()
-    local vendors = ps.callback('md-stashes:server:getVendors')
+    local vendors = Bridge.Callback.Trigger('md-stashes:server:getVendors')
     for k, v in pairs(vendors) do
-        ps.requestModel(v.ped)
+        requestModel(v.ped)
         local ped = CreatePed(0, v.ped, v.loc.x, v.loc.y, v.loc.z, v.loc.w, false, false)
         FreezeEntityPosition(ped, true)
         SetEntityInvincible(ped, true)
         SetBlockingOfNonTemporaryEvents(ped, true)
-        ps.entityTarget(ped, {
+        Bridge.Target.AddLocalEntity(ped, {
             {
-                label = ps.lang('Vendor.targetLabel'),
-                icon = ps.lang('Vendor.targetIcon'),
+                label = Bridge.Language.Locale('Vendor.targetLabel'),
+                icon = Bridge.Language.Locale('Vendor.targetIcon'),
                 action = function()
-                    local items = ps.callback('md-stashes:server:getBackpacks', k)
+                    local items = Bridge.Callback.Trigger('md-stashes:server:getBackpacks', k)
                     local elements = {}
                     for itemName, itemData in pairs(items) do
+                        local itemInfo = Bridge.Inventory.GetItemInfo(itemName)
                         elements[#elements + 1] = {
-                            title = ps.getLabel(itemName),
-                            description = ps.lang('Vendor.price', itemData.price),
-                            icon = ps.getImage(itemName),
+                            title = itemInfo.label,
+                            description = Bridge.Language.Locale('Vendor.price', itemData.price),
+                            icon = itemInfo.image,
                             action = function()
-                                local input = ps.input(ps.lang('Vendor.inputTitle'), {
-                                    {type = 'select', title = ps.lang('Vendor.inputDesc'), options = {
-                                        {value = 'cash', label = ps.lang('Vendor.inputOption1')},
-                                        {value = 'bank', label = ps.lang('Vendor.inputOption2')},
+                                local input = Bridge.Input.Open(Bridge.Language.Locale('Vendor.inputTitle'), {
+                                        {type = 'select', title = Bridge.Language.Locale('Vendor.inputDesc'), options = {
+                                            {value = 'cash', label = Bridge.Language.Locale('Vendor.inputOption1')},
+                                            {value = 'bank', label = Bridge.Language.Locale('Vendor.inputOption2')},
                                     }}
                                 })
                                 if not input then return end
@@ -33,7 +34,11 @@ local function initVendor()
                             end
                         }
                     end
-                    ps.menu(ps.lang('Vendor.menuTitle'),ps.lang('Vendor.menuTitle'),elements)
+                    Bridge.Menu.Open({
+                        id = Bridge.Language.Locale('Vendor.menuTitle'),
+                        title = Bridge.Language.Locale('Vendor.menuTitle'),
+                        options = elements
+                    })
                 end,
             }
         })

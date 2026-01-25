@@ -14,7 +14,7 @@
 
 | Dependency | Link |
 |----------|------|
-| `ps_lib` | [GitHub - Project-Sloth/ps_lib](https://github.com/Project-Sloth/ps_lib) |
+| `community_bridge` | [GitHub - Community Bridge](https://github.com/TheOrderFivem/community_bridge) |
 | `Read`   | [Read Docs](https://letters.hookedonphonics.com/us/read-guaranteed-G14.html) |
 
 > ⚠️ Ensure all dependencies are installed, up to date, and ensure **BEFORE** this script, before proceeding.

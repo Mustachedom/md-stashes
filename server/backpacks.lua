@@ -24,14 +24,13 @@ local itemList = { -- itemname | slots: number | maxweight: number | allowStashI
     },
 }
 
-ps.registerCallback('md-stashes:server:getVendors', function(source)
+Bridge.Callback.Register('md-stashes:server:getVendors', function(source)
     return vendorLocation
 end)
 
-ps.registerCallback('md-stashes:server:getBackpacks', function(source, loc)
+Bridge.Callback.Register('md-stashes:server:getBackpacks', function(source, loc)
     local src = source
-    if not ps.checkDistance(src, vendorLocation[loc].loc, 3) then
-        ps.warn(ps.lang('Fail.tooFar', ps.getPlayerName(src), 'md-stashes:server:getBackpacks'))
+    if not checkDistance(src, vendorLocation[loc].loc, 3) then
         return {}
     end
     return itemList
@@ -51,22 +50,13 @@ end
 
 
 for k, v in pairs(itemList) do
-    ps.createUseable(k, function(source, item)
+    Bridge.Framework.RegisterUsableItem(k, function(source, item)
         local src = source
         if not item then return end
-        if GetResourceState('ox_inventory') == 'started' then
-            ps.openStash(src, item.metadata.stashName, {
-                label = item.metadata.stashName,
-                slots = v.slots,
-                maxweight = v.maxweight,
-            })
+        if not item.info or not item.info.stashName then
             return
         end
-        ps.openStash(src, item.info.stashName, {
-            label = item.info.stashName,
-            slots = v.slots,
-            maxweight = v.maxweight,
-        })
+        Bridge.Inventory.OpenStash(src, 'stash', item.info.stashName)
     end)
 end
 
@@ -100,49 +90,49 @@ if GetResourceState('ox_inventory') == 'started' then
     })
 end
 
+if GetResourceState('tgiann-inventory') == 'started' then
+    exports["tgiann-inventory"]:RegisterHook('swapItems', function(payload)
+        return false
+    end, {
+        print = true,
+        itemFilter = refuse(),
+        inventoryFilter = filterInv()
+    })
+end
 RegisterNetEvent('md-stashes:server:buyBackpack', function(loc, itemName, type)
     local src = source
     if not itemList[itemName] then return end
-    if not ps.checkDistance(src, vendorLocation[loc].loc, 3) then
-        ps.warn(ps.lang('Fail.tooFar', ps.getPlayerName(src), 'md-stashes:server:buyBackpack'))
+    if not checkDistance(src, vendorLocation[loc].loc, 3) then
         return
     end
     local price = itemList[itemName].price
-    if ps.removeMoney(src, type, price) then
+    if Bridge.Framework.RemoveAccountBalance(src, type, price) then
         local uniqueId = generateUniqueId()
-        ps.addItem(src, itemName, 1, {stashName = itemName .. uniqueId})
+        Bridge.Inventory.AddItem(src, itemName, 1, {stashName = itemName .. uniqueId})
         return
     end
 end)
 
-ps.registerCommand('giveBag', {
-    admin = true,
-    help = ps.lang('giveBag.help'),
-    description = {
-        {
-            name = ps.lang('giveBag.pid'),
-            help = ps.lang('giveBag.pidHelp'),
-        },
-        {
-            name = ps.lang('giveBag.item'),
-            help = ps.lang('giveBag.itemHelp'),
-        }
-    }
-}, function(source, args, rawCommand)
+
+RegisterCommand('giveBag',function(source, args, rawCommand)
     local src = source
     if not IsPlayerAceAllowed(src, 'command') then return false end
     local targetId = tonumber(args[1])
     local itemName = args[2]
-    if not ps.getPlayer(targetId) then
-        ps.notify(src, ps.lang('giveBag.invalidPlayer'), 'error')
+    if not Bridge.Framework.GetPlayer(targetId) then
         return
     end
     if not itemList[args[2]] then
-        ps.notify(src, ps.lang('giveBag.invalidItem'), 'error')
+        Bridge.Notify.SendNotify(src, Bridge.Language.Locale('giveBag.invalidItem'), 'error')
         return
     end
     local uniqueId = generateUniqueId()
-    ps.addItem(targetId, itemName, 1, {stashName = itemName .. uniqueId})
-    ps.notify(src, ps.lang('giveBag.given',  ps.getPlayerName(targetId), itemName), 'success')
-    ps.notify(targetId, ps.lang('giveBag.received', itemName, ps.getPlayerName(src)), 'success')
-end)
+    Bridge.Inventory.AddItem(targetId, itemName, 1, {stashName = itemName .. uniqueId})
+    Bridge.Notify.SendNotify(src, Bridge.Language.Locale('giveBag.given',  Bridge.Framework.GetPlayerName(targetId), itemName), 'success')
+    Bridge.Notify.SendNotify(targetId, Bridge.Language.Locale('giveBag.received', itemName, Bridge.Framework.GetPlayerName(src)), 'success')
+end, false)
+
+TriggerClientEvent('chat:addSuggestion', -1, '/giveBag', Bridge.Language.Locale('giveBag.help'), {
+    { name = Bridge.Language.Locale('giveBag.pid'), help = Bridge.Language.Locale('giveBag.pidHelp') },
+    { name = Bridge.Language.Locale('giveBag.item'), help = Bridge.Language.Locale('giveBag.itemHelp') }
+})

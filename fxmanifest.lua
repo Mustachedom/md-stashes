@@ -23,7 +23,7 @@ shared_scripts {
 }
 
 files {
-  'locales/*.lua',
+  'locales/*.json',
   'web/build/index.html',
   'web/build/**/*'
 }

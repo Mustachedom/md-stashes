@@ -1,25 +1,34 @@
 
 local stashes = MySQL.query.await('SELECT * FROM mdstashes',{})
 
+function checkDistance(src, loc, dist)
+    local playerCoords = GetEntityCoords(GetPlayerPed(src))
+    local distance = #(playerCoords - loc)
+    if distance > dist then
+        Bridge.Prints.Warn(Bridge.Language.Locale('Fail.tooFar', Bridge.Framework.GetPlayerIdentifier(src), 'md-stashes:server:passwordCheck'))
+        return false
+    end
+    return true
+end
 -- Callbacks
-ps.registerCallback('md-stashes:server:verifyKey', function(source)
+Bridge.Callback.Register('md-stashes:server:verifyKey', function(source)
     if not IsPlayerAceAllowed(source, 'command') then return false end
     return true
 end)
 
-ps.registerCallback('md-stashes:server:getStashes', function(source)
+Bridge.Callback.Register('md-stashes:server:getStashes', function(source)
     return stashes
 end)
 
-ps.registerCallback('md-stashes:server:passwordCheck', function(source, pass, id)
+Bridge.Callback.Register('md-stashes:server:passwordCheck', function(source, pass, id)
     local src = source
     local passWord = MySQL.query.await('SELECT * FROM mdstashes WHERE id = ?', {id})
     if passWord and not passWord[1] then return false end
     passWord = passWord[1]
     local loc = json.decode(passWord.loc)
     local location = vector3(loc.x, loc.y, loc.z)
-    if not ps.checkDistance(src, location, 3) then
-        ps.warn(ps.lang('Fail.tooFar', ps.getPlayerName(src), 'md-stashes:server:passwordCheck'))
+
+    if not checkDistance(src, location, 3) then
         return
     end
     local data = json.decode(passWord.data)
@@ -27,9 +36,11 @@ ps.registerCallback('md-stashes:server:passwordCheck', function(source, pass, id
 end)
 
 
-ps.registerCallback('md-stashes:server:gotoLoc', function(source, data)
+Bridge.Callback.Register('md-stashes:server:gotoLoc', function(source, data)
     local src = source
-    if not IsPlayerAceAllowed(source, 'command') then return false end
+    if not IsPlayerAceAllowed(source, 'command') then
+        return false
+    end
     local loc = json.decode(data.loc)
     local location = vector3(loc.x, loc.y, loc.z)
 
@@ -40,7 +51,9 @@ end)
 -- Events
 RegisterNetEvent('md-stashes:server:createStash', function(data)
     local src = source
-    if not IsPlayerAceAllowed(source, 'command') then return false end
+    if not IsPlayerAceAllowed(src, 'command') then
+        return false
+    end
 
     MySQL.insert('INSERT INTO mdstashes SET loc = ?, name = ?, data = ?', {json.encode(data.coords), data.data.name, json.encode(data.data)})
     Wait(100)
@@ -50,7 +63,9 @@ end)
 
 RegisterNetEvent('md-stashes:server:saveEdit', function(data)
     local src = source
-    if not IsPlayerAceAllowed(source, 'command') then return false end
+    if not IsPlayerAceAllowed(src, 'command') then
+        return false
+    end
     local formData = data.form
 
     local oldData = data.id
@@ -65,11 +80,12 @@ RegisterNetEvent('md-stashes:server:saveEdit', function(data)
     TriggerClientEvent('md-stashes:client:newstash', -1)
 end)
 
-ps.versionCheck('md-stashes', 'https://raw.githubusercontent.com/Mustachedom/md-stashes/refs/heads/main/changelog.txt','https://github.com/Mustachedom/md-stashes/')
 
 RegisterNetEvent('md-stashes:server:changeLocation', function(data)
     local src = source
-    if not IsPlayerAceAllowed(source, 'command') then return false end
+    if not IsPlayerAceAllowed(src, 'command') then
+         return false
+    end
     local id = data.id.id
     local loc = data.loc.coords
     MySQL.update('UPDATE mdstashes SET loc = ? WHERE id = ?', {json.encode(loc), id})
@@ -80,7 +96,9 @@ end)
 
 RegisterNetEvent('md-stashes:server:deleteStash', function(data)
     local src = source
-    if not IsPlayerAceAllowed(source, 'command') then return false end
+    if not IsPlayerAceAllowed(src, 'command') then
+         return false
+    end
     local id = data.id
     MySQL.update('DELETE FROM mdstashes WHERE id = ?', {id})
     Wait(100)
@@ -88,18 +106,28 @@ RegisterNetEvent('md-stashes:server:deleteStash', function(data)
     TriggerClientEvent('md-stashes:client:newstash', -1)
 end)
 
-local function handleRCOREGangs(gangName, gangRank)
+local function handleRCOREGangs(gangName, gangRank, src)
     local gangs = exports['rcore_gang']:GetPlayerGang()
     if not gangs then return false end
     if gangs.name ~= gangName then return false end
     for k, v in pairs(gangs.members) do
-        if v.identifier == ps.getIdentifier() then
+        if v.identifier == Bridge.Framework.GetPlayerIdentifier(src) then
             if v.rankIndex >= gangRank then
                 return true
             end
         end
     end
     return false
+end
+
+local function getGang(src)
+    if GetResourceState('es_extended') == 'started' then
+        return true
+    end
+    local Player = Bridge.Framework.GetPlayerData(src)
+    if Player.gang then
+        return Player.gang.name, Player.gang.grade.level
+    end
 end
 
 local function checkAllowance(src, data)
@@ -110,11 +138,12 @@ local function checkAllowance(src, data)
     else
         checks = checks + 1
         if GetResourceState('rcore_gangs') == 'started' then
-            if handleRCOREGangs(data.gang, data.gangRank) then
+            if handleRCOREGangs(data.gang, data.gangRank, src) then
                 has = has + 1
             end
         else
-            if ps.tableContains(data.gang, ps.getGangName(src)) and ps.getGangData(src, 'grade').level >= data.gangRank then
+            local gangName, gangRank = getGang(src)
+            if Bridge.Tables.TableContains(data.gang, gangName) and gangRank >= data.gangRank then
                 has = has + 1
             end
         end
@@ -124,7 +153,8 @@ local function checkAllowance(src, data)
         has = has + 1
     else
         checks = checks + 1
-        if ps.tableContains(data.job, ps.getJobName(src)) and ps.getJobData(src, 'grade').level >= data.jobRank then
+        local jobInfo = Bridge.Framework.GetPlayerJobData(src)
+        if Bridge.Tables.TableContains(data.job, jobInfo.jobName) and jobInfo.gradeRank >= data.jobRank then
             has = has + 1
         end
     end
@@ -136,7 +166,7 @@ local function checkAllowance(src, data)
         local need, have = 0, 0
         for k, v in pairs(data.item) do
             need = need + 1
-            if ps.hasItem(src, v, 1) then
+            if Bridge.Framework.HasItem(src, v) then
                 have = have + 1
             end
         end
@@ -149,7 +179,7 @@ local function checkAllowance(src, data)
         has = has + 1
     else
         checks = checks + 1
-        if ps.tableContains(data.identifier, ps.getIdentifier(src)) then
+        if Bridge.Tables.TableContains(data.identifier, Bridge.Framework.GetPlayerIdentifier(src)) then
             has = has + 1
         end
     end
@@ -163,27 +193,28 @@ RegisterNetEvent('md-stashes:server:openStash', function(id)
 
     local loc = json.decode(stashData.loc)
     local location = vector3(loc.x, loc.y, loc.z)
-    if not ps.checkDistance(src, location, 3) then
-        ps.warn(ps.lang('Fail.tooFar', ps.getPlayerName(src), 'md-stashes:server:openStash'))
+    if not checkDistance(src, location, 3) then
         return
     end
 
     if not checkAllowance(src, stashData.data) then
-        ps.notify(src, ps.lang('Notify.noAccess'), 'error')
+        Bridge.Notify.SendNotify(src, Bridge.Framework.Lang('Notify.noAccess'), 'error')
         return
     end
 
     local data = json.decode(stashData.data)
-    ps.openStash(src, stashData.name, {
-        label = stashData.name,
+    local stashInfo = {
+        name = stashData.name,
         slots = data.slots,
-        maxweight = data.maxWeight,
-    })
+        maxweight = data.maxWeight
+    }
+    Bridge.Inventory.RegisterStash(stashInfo.name, stashInfo.name, stashInfo.slots, stashInfo.maxweight)
+    Bridge.Inventory.OpenStash(src, 'stash', stashInfo.name)
 end)
 
 -- Commands
 if Config.OldData then
-    ps.registerCommand('ADjustStashes', {admin = true}, function(source, args, raw)
+    RegisterCommand('ADjustStashes',function(source, args, raw)
         local src = source
         if not IsPlayerAceAllowed(src, 'command') then return false end
         local originalData = MySQL.query.await('SELECT * FROM mdstashes',{})
@@ -238,17 +269,17 @@ if Config.OldData then
             MySQL.update('UPDATE mdstashes SET data = ? WHERE id = ?', {json.encode(data), originalData[i].id})
             Wait(10)
         end
-    end)
+    end, false)
 end
 
-ps.registerCommand('newStash',{admin = true}, function(source, args, raw)
+RegisterCommand('newStash',function(source, args, raw)
     local src = source
     if not IsPlayerAceAllowed(source, 'command') then return false end
     TriggerClientEvent('md-stashes:client:startNew', src)
-end)
+end, false)
 
-ps.registerCommand('editStash', {admin = true}, function(source, args, raw)
+RegisterCommand('editStash',function(source, args, raw)
     local src = source
     if not IsPlayerAceAllowed(source, 'command') then return false end
     TriggerClientEvent('md-stashes:client:editStash', src)
-end)
+end, false)
